@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.report.dao.MonthReportDao">
+	<sql id="monthReportColumns">
+		a.*
+	</sql>
+	<!-- <select id="getWeakList" resultType="DayReport">
+		SELECT
+			<include refid="monthReportColumns"/>
+		FROM report_day a
+		WHERE TO_DAYS(NOW())-TO_DAYS(STR_TO_DATE(a.reportDate,'%Y-%m-%d')) <=7
+	</select> -->
+	
+	<!-- <select id="getCollectReport" resultType="DayReport">
+		SELECT
+			<include refid="monthReportColumns"/>
+		FROM report_day a
+		WHERE a.reportDate =  #{reportDate}
+	</select>
+	<select id="getRangeReport" resultType="DayReport">
+		SELECT
+			<include refid="monthReportColumns"/>
+		FROM report_day a
+		WHERE a.officeId = #{officeId} 
+		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ >= ]]> STR_TO_DATE(#{startDate},'%Y-%m-%d')
+		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ <= ]]> STR_TO_DATE(#{endDate},'%Y-%m-%d')
+	</select> -->
+	<select id="get" resultType="MonthReport">
+		SELECT
+			<include refid="monthReportColumns"/>
+		FROM report_month a
+		WHERE a.id = #{id}
+	</select>
+	<select id="findList" resultType="MonthReport">
+		SELECT 
+			<include refid="monthReportColumns"/>
+		FROM report_month a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="reportMonth != null and reportMonth != ''">
+			and a.reportMonth = #{reportMonth}
+		</if>
+		<if test="officeId != null and officeId != ''">
+			and a.officeId = #{officeId} 
+		</if>
+		
+		<!-- <choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY a.reportDate
+			</when>
+			<otherwise>
+				ORDER BY a.reportDate
+			</otherwise>
+		</choose> -->
+	</select>
+	<update id="delete">
+		UPDATE report_month SET 
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	<select id="getMonthReportCollect" resultType="MonthReport">
+		SELECT
+			<include refid="monthReportColumns"/>
+		FROM report_month a
+		WHERE a.reportMonth = #{reportMonth} 
+	</select>
+	<update id="update">
+		UPDATE report_month SET 
+			reportDate = #{reportDate},
+			reportMonth = #{reportMonth},
+			waterTreatment1 = #{waterTreatment1},
+			waterTreatment2 = #{waterTreatment2},
+			monthCost = #{monthCost},
+			receivableWaterRent = #{receivableWaterRent},
+			netWaterRent = #{netWaterRent},
+			arrears = #{arrears},
+			codSelfAverageIn = #{codSelfAverageIn},
+			nhhSelfAverageIn = #{nhhSelfAverageIn},
+			tpSelfAverageIn = #{tpSelfAverageIn},
+			tnSelfAverageIn = #{tnSelfAverageIn},
+			ssSelfAverageIn = #{ssSelfAverageIn},
+			phSelfAverageIn = #{phSelfAverageIn},
+			codSelfAverageOut = #{codSelfAverageOut},
+			nhhSelfAverageOut = #{nhhSelfAverageOut},
+			tpSelfAverageOut = #{tpSelfAverageOut},
+			tnSelfAverageOut = #{tnSelfAverageOut},
+			ssSelfAverageOut = #{ssSelfAverageOut},
+			phSelfAverageOut = #{phSelfAverageOut},
+			codOnLineAverageIn = #{codOnLineAverageIn},
+			nhhOnLineAverageIn = #{nhhOnLineAverageIn},
+			tpOnLineAverageIn = #{tpOnLineAverageIn},
+			tnOnLineAverageIn = #{tnOnLineAverageIn},
+			ssOnLineAverageIn = #{ssOnLineAverageIn},
+			phOnLineAverageIn = #{phOnLineAverageIn},
+			codOnLineAverageOut = #{codOnLineAverageOut},
+			nhhOnLineAverageOut = #{nhhOnLineAverageOut},
+			tpOnLineAverageOut = #{tpOnLineAverageOut},
+			tnOnLineAverageOut = #{tnOnLineAverageOut},
+			ssOnLineAverageOut = #{ssOnLineAverageOut},
+			phOnLineAverageOut = #{phOnLineAverageOut},
+			pacQty = #{pacQty},
+			pamSubQty = #{pamSubQty},
+			pamPlusQty = #{pamPlusQty},
+			yeluQty = #{yeluQty},
+			waterQty = #{waterQty},
+			genMudQty = #{genMudQty},
+			powerQty = #{powerQty},
+			waterConsumQty = #{waterConsumQty},
+			runAndFixDesc = #{runAndFixDesc},
+			problemDesc = #{problemDesc},
+			actionDesc = #{actionDesc},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	<insert id="insert" parameterType="MonthReport" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO report_month(
+			officeId,
+			reportDate,
+			reportMonth,
+			waterTreatment1,
+			waterTreatment2,
+			monthCost,
+			receivableWaterRent,
+			netWaterRent,
+			arrears,
+			codSelfAverageIn,
+			nhhSelfAverageIn,
+			tpSelfAverageIn,
+			tnSelfAverageIn,
+			ssSelfAverageIn,
+			phSelfAverageIn,
+			codSelfAverageOut,
+			nhhSelfAverageOut,
+			tpSelfAverageOut,
+			tnSelfAverageOut,
+			ssSelfAverageOut,
+			phSelfAverageOut,
+			codOnLineAverageIn,
+			nhhOnLineAverageIn,
+			tpOnLineAverageIn,
+			tnOnLineAverageIn,
+			ssOnLineAverageIn,
+			phOnLineAverageIn,
+			codOnLineAverageOut,
+			nhhOnLineAverageOut,
+			tpOnLineAverageOut,
+			tnOnLineAverageOut,
+			ssOnLineAverageOut,
+			phOnLineAverageOut,
+			pacQty,
+			pamSubQty,
+			pamPlusQty,
+			yeluQty,
+			waterQty,
+			genMudQty,
+			powerQty,
+			waterConsumQty,
+			runAndFixDesc,
+			problemDesc,
+			actionDesc,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{officeId},
+			#{reportDate},
+			#{reportMonth},
+			#{waterTreatment1},
+			#{waterTreatment2},
+			#{monthCost},
+			#{receivableWaterRent},
+			#{netWaterRent},
+			#{arrears},
+			#{codSelfAverageIn},
+			#{nhhSelfAverageIn},
+			#{tpSelfAverageIn},
+			#{tnSelfAverageIn},
+			#{ssSelfAverageIn},
+			#{phSelfAverageIn},
+			#{codSelfAverageOut},
+			#{nhhSelfAverageOut},
+			#{tpSelfAverageOut},
+			#{tnSelfAverageOut},
+			#{ssSelfAverageOut},
+			#{phSelfAverageOut},
+			#{codOnLineAverageIn},
+			#{nhhOnLineAverageIn},
+			#{tpOnLineAverageIn},
+			#{tnOnLineAverageIn},
+			#{ssOnLineAverageIn},
+			#{phOnLineAverageIn},
+			#{codOnLineAverageOut},
+			#{nhhOnLineAverageOut},
+			#{tpOnLineAverageOut},
+			#{tnOnLineAverageOut},
+			#{ssOnLineAverageOut},
+			#{phOnLineAverageOut},
+			#{pacQty},
+			#{pamSubQty},
+			#{pamPlusQty},
+			#{yeluQty},
+			#{waterQty},
+			#{genMudQty},
+			#{powerQty},
+			#{waterConsumQty},
+			#{runAndFixDesc},
+			#{problemDesc},
+			#{actionDesc},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+</mapper>

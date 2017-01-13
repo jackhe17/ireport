@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.report.dao.OpLogDao">
+	<sql id="opLogColumns">
+		a.*
+	</sql>
+	<select id="get" resultType="OpLog">
+		SELECT
+			<include refid="opLogColumns"/>
+		FROM report_op_log a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="OpLog">
+		SELECT 
+			<include refid="opLogColumns"/>
+		FROM report_op_log a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="logDate != null and logDate != ''">
+			and a.logDate = #{logDate}
+		</if>
+		<if test="officeId != null and officeId != ''">
+			and a.officeId = #{officeId} 
+		</if>
+	</select>
+	<update id="delete">
+		UPDATE report_op_log SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<update id="update">
+		UPDATE report_op_log SET 
+			officeId = #{officeId},
+			logDate = #{logDate},
+			weather = #{weather},
+			poolId = #{poolId},
+			waterStartTime = #{waterStartTime},
+			waterEndTime = #{waterEndTime},
+			waterUsage = #{waterUsage},
+			dryHour = #{dryHour},
+			dryMin = #{dryMin},
+			logRemarks = #{logRemarks},
+			logRecorder = #{logRecorder},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	<insert id="insert">
+		INSERT INTO report_op_log(
+			officeId,
+			logDate,
+			weather,
+			poolId,
+			waterStartTime,
+			waterEndTime,
+			waterUsage,
+			dryHour,
+			dryMin,
+			logRemarks,
+			logRecorder,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{officeId},
+			#{logDate},
+			#{weather},
+			#{poolId},
+			#{waterStartTime},
+			#{waterEndTime},
+			#{waterUsage},
+			#{dryHour},
+			#{dryMin},
+			#{logRemarks},
+			#{logRecorder},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+</mapper>

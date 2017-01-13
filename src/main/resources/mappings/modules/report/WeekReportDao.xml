@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.report.dao.WeekReportDao">
+	<sql id="reportColumns">
+		a.*
+	</sql>
+	<!-- <select id="getWeakList" resultType="DayReport">
+		SELECT
+			<include refid="reportColumns"/>
+		FROM report_day a
+		WHERE TO_DAYS(NOW())-TO_DAYS(STR_TO_DATE(a.reportDate,'%Y-%m-%d')) <=7
+	</select> -->
+	
+	<!-- <select id="getCollectReport" resultType="DayReport">
+		SELECT
+			<include refid="reportColumns"/>
+		FROM report_day a
+		WHERE a.reportDate =  #{reportDate}
+	</select>
+	<select id="getRangeReport" resultType="DayReport">
+		SELECT
+			<include refid="reportColumns"/>
+		FROM report_day a
+		WHERE a.officeId = #{officeId} 
+		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ >= ]]> STR_TO_DATE(#{startDate},'%Y-%m-%d')
+		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ <= ]]> STR_TO_DATE(#{endDate},'%Y-%m-%d')
+	</select> -->
+	<select id="get" resultType="WeekReport">
+		SELECT
+			<include refid="reportColumns"/>
+		FROM report_week a
+		WHERE a.id = #{id}
+	</select>
+	<select id="findList" resultType="MonthReport">
+		SELECT 
+			<include refid="reportColumns"/>
+		FROM report_week a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="reportDate != null and reportDate != ''">
+			and a.reportDate = #{reportDate}
+		</if>
+		<if test="officeId != null and officeId != ''">
+			and a.officeId = #{officeId} 
+		</if>
+		
+		<!-- <choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY a.reportDate
+			</when>
+			<otherwise>
+				ORDER BY a.reportDate
+			</otherwise>
+		</choose> -->
+	</select>
+	<update id="delete">
+		UPDATE report_week SET 
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	<select id="getWeekReportCollect" resultType="WeekReport">
+		SELECT
+			<include refid="reportColumns"/>
+		FROM report_week a
+		WHERE a.reportDate = #{reportDate} 
+	</select>
+	<update id="update">
+		UPDATE report_week SET 
+			reportDate = #{reportDate},
+			waterTreatment1 = #{waterTreatment1},
+			waterTreatment2 = #{waterTreatment2},
+			pac = #{pac},
+			ipra = #{ipra},
+			pam1 = #{pam1},
+			pam2 = #{pam2},
+			disin = #{disin},
+			electricity = #{electricity},
+			water = #{water},
+			sq1 = #{sq1},
+			codSelfAverageIn = #{codSelfAverageIn},
+			nhhSelfAverageIn = #{nhhSelfAverageIn},
+			tpSelfAverageIn = #{tpSelfAverageIn},
+			tnSelfAverageIn = #{tnSelfAverageIn},
+			ssSelfAverageIn = #{ssSelfAverageIn},
+			phSelfAverageIn = #{phSelfAverageIn},
+			codSelfAverageOut = #{codSelfAverageOut},
+			nhhSelfAverageOut = #{nhhSelfAverageOut},
+			tpSelfAverageOut = #{tpSelfAverageOut},
+			tnSelfAverageOut = #{tnSelfAverageOut},
+			ssSelfAverageOut = #{ssSelfAverageOut},
+			phSelfAverageOut = #{phSelfAverageOut},
+			codOnLineAverageIn = #{codOnLineAverageIn},
+			nhhOnLineAverageIn = #{nhhOnLineAverageIn},
+			tpOnLineAverageIn = #{tpOnLineAverageIn},
+			tnOnLineAverageIn = #{tnOnLineAverageIn},
+			ssOnLineAverageIn = #{ssOnLineAverageIn},
+			phOnLineAverageIn = #{phOnLineAverageIn},
+			codOnLineAverageOut = #{codOnLineAverageOut},
+			nhhOnLineAverageOut = #{nhhOnLineAverageOut},
+			tpOnLineAverageOut = #{tpOnLineAverageOut},
+			tnOnLineAverageOut = #{tnOnLineAverageOut},
+			ssOnLineAverageOut = #{ssOnLineAverageOut},
+			phOnLineAverageOut = #{phOnLineAverageOut},
+			weekFinishWork = #{weekFinishWork},
+			problemDesc = #{problemDesc},
+			actionDesc = #{actionDesc},
+			nextWeekPlan = #{nextWeekPlan},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	<insert id="insert" parameterType="WeekReport" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO report_week(
+			officeId,
+			reportDate,
+			waterTreatment1,
+			waterTreatment2,
+			pac,
+			ipra,
+			pam1,
+			pam2,
+			disin,
+			electricity,
+			water,
+			sq1,
+			codSelfAverageIn,
+			nhhSelfAverageIn,
+			tpSelfAverageIn,
+			tnSelfAverageIn,
+			ssSelfAverageIn,
+			phSelfAverageIn,
+			codSelfAverageOut,
+			nhhSelfAverageOut,
+			tpSelfAverageOut,
+			tnSelfAverageOut,
+			ssSelfAverageOut,
+			phSelfAverageOut,
+			codOnLineAverageIn,
+			nhhOnLineAverageIn,
+			tpOnLineAverageIn,
+			tnOnLineAverageIn,
+			ssOnLineAverageIn,
+			phOnLineAverageIn,
+			codOnLineAverageOut,
+			nhhOnLineAverageOut,
+			tpOnLineAverageOut,
+			tnOnLineAverageOut,
+			ssOnLineAverageOut,
+			phOnLineAverageOut,
+			weekFinishWork,
+			problemDesc,
+			actionDesc,
+			nextWeekPlan,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{officeId},
+			#{reportDate},
+			#{waterTreatment1},
+			#{waterTreatment2},
+			#{pac},
+			#{ipra},
+			#{pam1},
+			#{pam2},
+			#{disin},
+			#{electricity},
+			#{water},
+			#{sq1},
+			#{codSelfAverageIn},
+			#{nhhSelfAverageIn},
+			#{tpSelfAverageIn},
+			#{tnSelfAverageIn},
+			#{ssSelfAverageIn},
+			#{phSelfAverageIn},
+			#{codSelfAverageOut},
+			#{nhhSelfAverageOut},
+			#{tpSelfAverageOut},
+			#{tnSelfAverageOut},
+			#{ssSelfAverageOut},
+			#{phSelfAverageOut},
+			#{codOnLineAverageIn},
+			#{nhhOnLineAverageIn},
+			#{tpOnLineAverageIn},
+			#{tnOnLineAverageIn},
+			#{ssOnLineAverageIn},
+			#{phOnLineAverageIn},
+			#{codOnLineAverageOut},
+			#{nhhOnLineAverageOut},
+			#{tpOnLineAverageOut},
+			#{tnOnLineAverageOut},
+			#{ssOnLineAverageOut},
+			#{phOnLineAverageOut},
+			#{weekFinishWork},
+			#{problemDesc},
+			#{actionDesc},
+			#{nextWeekPlan},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+</mapper>

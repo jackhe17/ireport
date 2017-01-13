@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.report.dao.OverproofDao">
+	<sql id="overproofColumns">
+		a.*
+	</sql>
+	<select id="get" resultType="Overproof">
+		SELECT
+			<include refid="overproofColumns"/>
+		FROM report_mon_overproof a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Overproof">
+		SELECT 
+			<include refid="overproofColumns"/>
+		FROM report_mon_overproof a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+			and a.monthReportId = #{monthReportId}
+			and a.type = #{type}
+	</select>
+	<update id="delete">
+		UPDATE report_mon_overproof SET 
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	<update id="deleteByMonthReportId">
+		UPDATE report_mon_overproof SET 
+			del_flag = #{delFlag}
+		WHERE monthReportId = #{monthReportId}
+	</update>
+	<update id="update">
+		UPDATE report_mon_overproof SET 
+			occurDate = #{occurDate},
+			cod = #{cod},
+			nhh = #{nhh},
+			tp = #{tp},
+			tn = #{tn},
+			ss = #{ss},
+			ph = #{ph},
+			type = #{type},
+			monthReportId = #{monthReportId},
+			logRemarks = #{logRemarks},
+			logRecorder = #{logRecorder},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	<insert id="insert">
+		INSERT INTO report_mon_overproof(
+			occurDate,
+			cod,
+			nhh,
+			tp,
+			tn,
+			ss,
+			ph,
+			type,
+			monthReportId,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{occurDate},
+			#{cod},
+			#{nhh},
+			#{tp},
+			#{tn},
+			#{ss},
+			#{ph},
+			#{type},
+			#{monthReportId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+</mapper>
