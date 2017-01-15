@@ -50,6 +50,8 @@
 		</ul>
 	</form:form>
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
+	<c:choose> 
+		<c:when test="${page.list.size()>0}">
 		<thead><tr><th>序号</th><th>公司</th><th class="sort-column report_date">日期</th><shiro:hasPermission name="report:day:edit"><th>操作</th></shiro:hasPermission></tr></thead>
 		<tbody>
 		<c:forEach items="${page.list}" var="dayReport">
@@ -64,6 +66,11 @@
 			</tr>
 		</c:forEach>
 		</tbody>
+		 </c:when>
+				<c:otherwise>
+				<tr><td colspan="5">没有数据<td></tr>
+		   		</c:otherwise>  
+		</c:choose>
 	</table>
 	<div class="pagination">${page}</div>
 </body>
