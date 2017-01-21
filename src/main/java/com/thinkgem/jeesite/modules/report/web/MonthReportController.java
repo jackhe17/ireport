@@ -178,7 +178,7 @@ public class MonthReportController extends BaseController {
 	@RequiresPermissions("report:month:collect:view")
 	@RequestMapping(value = {"collectGenerate", ""})
 	public String collectGenerate(MonthReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<MonthReport> page = reportService.findMonthCollect(new Page<MonthReport>(request, response), report);
+		Page<MonthReport> page = reportService.find(new Page<MonthReport>(request, response), report);
         model.addAttribute("page", page);
         model.addAttribute("report", report);
 		return "modules/report/monthReportCollect";

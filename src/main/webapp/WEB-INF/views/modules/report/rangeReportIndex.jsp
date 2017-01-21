@@ -116,7 +116,7 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			<div class="pagination">${page}</div>
+			<%-- <div class="pagination">${page}</div> --%>
 	</c:when>
 		<c:otherwise>没有数据
 		</c:otherwise> 

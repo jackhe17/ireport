@@ -40,17 +40,18 @@ public class DayReportService extends CrudService<DayReportDao, DayReport> {
 	
 	public Page<DayReport> find(Page<DayReport> page, DayReport dayReport) {
 		dayReport.setPage(page);
+		dayReport.setDelFlag(DayReport.DEL_FLAG_NORMAL);
 		page.setList(dao.findList(dayReport));
 		return page;
 	}
 	public Page<DayReport> findCollectReport(Page<DayReport> page, DayReport dayReport) {
 		dayReport.setPage(page);
-		page.setList(dayReportDao.getCollectReport(dayReport.getReportDate()));
+		page.setList(dayReportDao.getCollectReport(dayReport));
 		return page;
 	}
 	public Page<DayReport> findRangeReport(Page<DayReport> page,DayReport dayReport, RangeReport rangeReport) {
 		dayReport.setPage(page);
-		page.setList(dayReportDao.getRangeReport(rangeReport.getOfficeId(),rangeReport.getStartDate(),rangeReport.getEndDate()));
+		page.setList(dayReportDao.getRangeReport(rangeReport.getOfficeId(),rangeReport.getStartDate(),rangeReport.getEndDate(),dayReport.DEL_FLAG_NORMAL));
 		return page;
 	}
 	/**

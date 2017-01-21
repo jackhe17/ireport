@@ -46,8 +46,11 @@ public class RangeReportController extends BaseController {
 	@RequiresPermissions("range:report:view")
 	@RequestMapping(value = {"generate", ""})
 	public String generate(RangeReport rangeReport, HttpServletRequest request, HttpServletResponse response, Model model) {
-		DayReport dayReport = new DayReport();
-		Page<DayReport> page = reportService.findRangeReport(new Page<DayReport>(request, response), dayReport,rangeReport);
+		DayReport report = new DayReport();
+		if(rangeReport !=null && !UserUtils.getUser().isAdmin()){
+			rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
+		Page<DayReport> page = reportService.findRangeReport(new Page<DayReport>(request, response), report,rangeReport);
         model.addAttribute("page", page);
         model.addAttribute("user", UserUtils.getUser());
         model.addAttribute("rangeReport", rangeReport);

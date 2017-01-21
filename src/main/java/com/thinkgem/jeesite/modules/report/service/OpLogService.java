@@ -13,7 +13,6 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.report.dao.OpLogDao;
-import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.OpLog;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 

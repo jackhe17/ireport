@@ -4,27 +4,6 @@
 	<sql id="monthReportColumns">
 		a.*
 	</sql>
-	<!-- <select id="getWeakList" resultType="DayReport">
-		SELECT
-			<include refid="monthReportColumns"/>
-		FROM report_day a
-		WHERE TO_DAYS(NOW())-TO_DAYS(STR_TO_DATE(a.reportDate,'%Y-%m-%d')) <=7
-	</select> -->
-	
-	<!-- <select id="getCollectReport" resultType="DayReport">
-		SELECT
-			<include refid="monthReportColumns"/>
-		FROM report_day a
-		WHERE a.reportDate =  #{reportDate}
-	</select>
-	<select id="getRangeReport" resultType="DayReport">
-		SELECT
-			<include refid="monthReportColumns"/>
-		FROM report_day a
-		WHERE a.officeId = #{officeId} 
-		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ >= ]]> STR_TO_DATE(#{startDate},'%Y-%m-%d')
-		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ <= ]]> STR_TO_DATE(#{endDate},'%Y-%m-%d')
-	</select> -->
 	<select id="get" resultType="MonthReport">
 		SELECT
 			<include refid="monthReportColumns"/>
@@ -59,8 +38,10 @@
 	<select id="getMonthReportCollect" resultType="MonthReport">
 		SELECT
 			<include refid="monthReportColumns"/>
-		FROM report_month a
-		WHERE a.reportMonth = #{reportMonth} 
+		FROM report_month a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="reportMonth != null and reportMonth != ''">
+			and a.reportMonth = #{reportMonth}
+		</if>
 	</select>
 	<update id="update">
 		UPDATE report_month SET 

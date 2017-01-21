@@ -15,13 +15,20 @@
 		SELECT
 			<include refid="dayReportColumns"/>
 		FROM report_day a
-		WHERE a.reportDate =  #{reportDate}
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="officeId != null and officeId != ''">
+			and a.officeId = #{officeId} 
+		</if>
+		<if test="reportDate != null and reportDate != ''">
+			a.reportDate =  #{reportDate} 
+		</if>
+		
 	</select>
 	<select id="getRangeReport" resultType="DayReport">
 		SELECT
 			<include refid="dayReportColumns"/>
-		FROM report_day a
-		WHERE a.officeId = #{officeId} 
+		FROM report_day a 
+		WHERE a.officeId = #{officeId} and a.del_flag = #{delFlag}
 		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ >= ]]> STR_TO_DATE(#{startDate},'%Y-%m-%d')
 		and STR_TO_DATE(a.reportDate,'%Y-%m-%d') <![CDATA[ <= ]]> STR_TO_DATE(#{endDate},'%Y-%m-%d')
 	</select>
@@ -42,6 +49,9 @@
 		FROM report_day a WHERE a.del_flag = #{DEL_FLAG_NORMAL}
 		<if test="reportDate != null and reportDate != ''">
 			and a.reportDate = #{reportDate}
+		</if>
+		<if test="officeId != null and officeId != ''">
+			 and a.officeId = #{officeId}
 		</if>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

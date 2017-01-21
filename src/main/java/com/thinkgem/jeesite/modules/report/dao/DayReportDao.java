@@ -18,6 +18,6 @@ import com.thinkgem.jeesite.modules.report.entity.DayReport;
  */
 @MyBatisDao
 public interface DayReportDao extends CrudDao<DayReport> {
-	List<DayReport> getCollectReport(String reportDate);
-	List<DayReport> getRangeReport(@Param(value="officeId") String officeId,@Param(value="startDate") String startDate,@Param(value="endDate") String endDate);
+	List<DayReport> getCollectReport(DayReport dayReport);
+	List<DayReport> getRangeReport(@Param(value="officeId") String officeId,@Param(value="startDate") String startDate,@Param(value="endDate") String endDate,@Param(value="delFlag") String delFlag);
 }

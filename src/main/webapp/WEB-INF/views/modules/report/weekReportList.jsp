@@ -44,14 +44,16 @@
 				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></li>
 		 --%>
 		<li><label class="input-label">汇报时间：</label><input id="reportDate" name="reportDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
-						value="<fmt:formatDate value="${report.reportDate}" pattern="yyyy-MM-dd"/>"
+						value="<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 						onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/></li>
 		<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
-			<input id="btnExport" class="btn btn-primary" type="button" value="导出"/>
+			<!-- <input id="btnExport" class="btn btn-primary" type="button" value="导出"/> -->
 		<li class="clearfix"></li>
 		</ul>
 	</form:form>
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
+	<c:choose> 
+	<c:when test="${page.list.size()>0}">
 		<thead><tr><th>序号</th><th >厂区</th><th >汇报日期</th><shiro:hasPermission name="report:week:edit"><th>操作</th></shiro:hasPermission></tr></thead>
 		<tbody>
 		<c:forEach items="${page.list}" var="report">
@@ -66,6 +68,11 @@
 			</tr>
 		</c:forEach>
 		</tbody>
+		 </c:when>
+				<c:otherwise>
+				<tr><td colspan="5">没有数据<td></tr>
+		   		</c:otherwise>  
+		</c:choose>
 	</table>
 	<div class="pagination">${page}</div>
 </body>

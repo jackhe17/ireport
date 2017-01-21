@@ -1329,10 +1329,6 @@ public class DayReport extends DataEntity<DayReport> {
 		this.problem = problem;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getOfficeId() {
 		return officeId;
 	}

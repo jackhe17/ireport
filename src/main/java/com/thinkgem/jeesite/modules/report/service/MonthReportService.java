@@ -48,7 +48,7 @@ public class MonthReportService extends CrudService<MonthReportDao, MonthReport>
 	
 	public Page<MonthReport> findMonthCollect(Page<MonthReport> page, MonthReport report) {
 		report.setPage(page);
-		page.setList(reportDao.getMonthReportCollect(report.getReportMonth()));
+		page.setList(dao.findList(report));
 		return page;
 	}
 	
