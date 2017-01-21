@@ -47,11 +47,13 @@
 						value="<fmt:parseDate value="${report.reportMonth}" pattern="yyyy-MM" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM"/>"
 						onclick="WdatePicker({dateFmt:'yyyy-MM',isShowClear:true});"/></li>
 		<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
-			<input id="btnExport" class="btn btn-primary" type="button" value="导出"/>
+			<!-- <input id="btnExport" class="btn btn-primary" type="button" value="导出"/> -->
 		<li class="clearfix"></li>
 		</ul>
 	</form:form>
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
+	<c:choose> 
+		<c:when test="${page.list.size()>0}">
 		<thead><tr><th>序号</th><th >厂区</th><th >汇报日期</th><shiro:hasPermission name="report:day:edit"><th>操作</th></shiro:hasPermission></tr></thead>
 		<tbody>
 		<c:forEach items="${page.list}" var="report">
@@ -66,6 +68,11 @@
 			</tr>
 		</c:forEach>
 		</tbody>
+		 </c:when>
+				<c:otherwise>
+				<tr><td colspan="5">没有数据<td></tr>
+		   		</c:otherwise>  
+		</c:choose>
 	</table>
 	<div class="pagination">${page}</div>
 </body>

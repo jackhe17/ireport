@@ -47,7 +47,7 @@
 							value="<fmt:parseDate value="${opLog.logDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/></li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
-				<input id="btnExport" class="btn btn-primary" type="button" value="导出"/>
+				<!-- <input id="btnExport" class="btn btn-primary" type="button" value="导出"/> -->
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>
