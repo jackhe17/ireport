@@ -42,12 +42,14 @@ public class MonthReportService extends CrudService<MonthReportDao, MonthReport>
 	
 	public Page<MonthReport> find(Page<MonthReport> page, MonthReport report) {
 		report.setPage(page);
+		report.setDelFlag(DayReport.DEL_FLAG_NORMAL);
 		page.setList(dao.findList(report));
 		return page;
 	}
 	
 	public Page<MonthReport> findMonthCollect(Page<MonthReport> page, MonthReport report) {
 		report.setPage(page);
+		report.setDelFlag(DayReport.DEL_FLAG_NORMAL);
 		page.setList(dao.findList(report));
 		return page;
 	}

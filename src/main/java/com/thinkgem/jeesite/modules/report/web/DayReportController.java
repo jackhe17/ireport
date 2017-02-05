@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.report.web;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +20,11 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.common.utils.excel.ExportExcel;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.service.DayReportService;
+import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 @Controller
@@ -69,29 +71,6 @@ public class DayReportController extends BaseController {
         model.addAttribute("report", report);
 		return "modules/report/dayReportList";
 	}
-
-	/**
-	 * 导出用户数据
-	 * @param user
-	 * @param request
-	 * @param response
-	 * @param redirectAttributes
-	 * @return
-	 */
-	@RequiresPermissions("report:day:view")
-    @RequestMapping(value = "export", method=RequestMethod.POST)
-    public String exportFile(DayReport report, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
-		try {
-            String fileName = "日报表"+report.getReportDate()+".xlsx";
-            Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
-    		new ExportExcel("日报表", DayReport.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		return null;
-		} catch (Exception e) {
-			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
-		}
-		return "redirect:" + adminPath + "/report/dayReportList";
-    }
-	
 	@RequiresPermissions("report:day:view")
 	@RequestMapping(value = "form")
 	public String form(DayReport report, Model model) {
@@ -114,7 +93,6 @@ public class DayReportController extends BaseController {
 		addMessage(redirectAttributes, "保存生产运行日报表'" + report.getReportDate() + "'成功");
 		return "redirect:" + adminPath + "/report/day/index";
 	}
-	
 	@RequiresPermissions("report:day:edit")
 	@RequestMapping(value = "delete")
 	public String delete(DayReport report, RedirectAttributes redirectAttributes) {
@@ -148,11 +126,48 @@ public class DayReportController extends BaseController {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
+		List<DayReport> list = page.getList();
+		if (null !=list && list.size()>0) {
+			int id = 1;
+			for (DayReport dayReport : list) {
+				dayReport.setId(String.valueOf(id));
+				id++;
+			}
+		}
         model.addAttribute("page", page);
         model.addAttribute("report", report);
         model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportCollect";
 	}
+
+	@RequiresPermissions("report:day:view")
+    @RequestMapping(value = "dayReportCollectExport", method=RequestMethod.POST)
+    public String collectExportFile(DayReport report, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		try {
+            String fileName = "汇总日报表"+report.getReportDate()+".xls";
+            Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
+//    		new ExportExcel("日报表", DayReport.class).setDataList(page.getList()).write(response, fileName).dispose();
+    		new ExportExcelJxls(1).setDataList(page.getList()).write(response, fileName);
+    		return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
+		}
+		return "redirect:" + adminPath + "/report/dayReportCollect";
+    }
 	
-	
+	@RequiresPermissions("report:day:view")
+    @RequestMapping(value = "export")
+    public String export(String id, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		DayReport dayReport = reportService.get(id);
+		try {
+			String company = OfficeUtils.getOfficeName(dayReport.getOfficeId());
+            String fileName = company+"_"+"日报表"+dayReport.getReportDate()+".xls";
+//    		new ExportExcel("日报表", DayReport.class).setDataList(page.getList()).write(response, fileName).dispose();
+    		new ExportExcelJxls(3).setDayReport(dayReport).setCompany(company).write(response, fileName);
+    		return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
+		}
+		return "redirect:" + adminPath + "/report/dayReportList";
+    }
 }

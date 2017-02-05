@@ -8,9 +8,9 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#btnExport").click(function(){
-			top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
+			top.$.jBox.confirm("确认要导出报表数据吗？","系统提示",function(v,h,f){
 				if(v=="ok"){
-					$("#searchForm").attr("action","${ctx}/sys/user/export");
+					$("#searchForm").attr("action","${ctx}/report/day/dayReportCollectExport");
 					$("#searchForm").submit();
 				}
 			},{buttonsFocus:1});

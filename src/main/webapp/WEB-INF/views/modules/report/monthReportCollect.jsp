@@ -8,9 +8,9 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#btnExport").click(function(){
-			top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
+			top.$.jBox.confirm("确认要导出报表数据吗？","系统提示",function(v,h,f){
 				if(v=="ok"){
-					$("#searchForm").attr("action","${ctx}/sys/user/export");
+					$("#searchForm").attr("action","${ctx}/report/month/collectExport");
 					$("#searchForm").submit();
 				}
 			},{buttonsFocus:1});
@@ -147,50 +147,48 @@
 			<table id="contentTable" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th scope="col">厂区</th>
-					    <th scope="col">PAC（吨）</th>
-					    <th scope="col">PAM-（吨）</th>
-					    <th scope="col">PAM+（吨）</th>
-					    <th scope="col">除磷剂（吨）</th>
-					    <th scope="col">液氯（吨）</th>
-					    <th scope="col">漂水（吨）</th>
-					    <th scope="col">产泥量（吨）</th>
-					    <th scope="col">电耗量（吨）</th>
-					    <th scope="col">自来水耗量（吨）</th>
+						<th scope="col">厂区</th>				    
+					    <td scope="col">PAC(吨) </td>
+					    <td scope="col">铁盐/除磷剂(吨)</td>
+					    <td scope="col">PAM-(kg)</td>
+					    <td scope="col">PAM+(kg)</td>
+					    <td scope="col">消毒药剂(m3/kg)</td>
+					    <td scope="col">用电量(kw.h)</td>
+					    <td scope="col">用水量(吨)</td>
+					    <td scope="col">污泥量(吨)</td>
 				    </tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${page.list}" var="report">
 					<tr>
 					    <td>${fns:getOfficeName(report.officeId)}</td>
-					    <td>${report.pacQty}</td>
-					    <td>${report.pamSubQty}</td>
-					    <td>${report.pamPlusQty}</td>
-					    <td>？？</td>
-					    <td>${report.yeluQty}</td>
-					    <td>${report.waterQty}</td>
-					    <td>${report.genMudQty}</td>
-					    <td>${report.powerQty}</td>
-					    <td>${report.waterConsumQty}</td>
+					    <td>${report.pac}</td>
+					    <td>${report.ipra}</td>
+					    <td>${report.pam1}</td>
+					    <td>${report.pam2}</td>
+					    <td>${report.disin}</td>
+					    <td>${report.electricity}</td>
+					    <td>${report.water}</td>
+					    <td>${report.sq1}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</div>
 		<div class="control-group">
-			<label class="lbl">三，设备运行情况及维修保养记录</label><br>
+			<label class="lbl">三、本月完成的主要工作</label><br>
 			<table id="contentTable" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th scope="col">厂区</th>
-    					<th scope="col">设备运行情况及维修保养记录</th>
+    					<th scope="col">本月完成的主要工作</th>
 				    </tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${page.list}" var="report">
 					<tr>
 					   <td>${fns:getOfficeName(report.officeId)}</td>
-				    	<td>${report.runAndFixDesc}</td>
+				    	<td>${report.monthFinishWork}</td>
 					</tr>
 				</c:forEach>
 				</tbody>

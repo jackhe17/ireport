@@ -61,7 +61,7 @@
 		    <td rowspan="2">日处理水量（m3）</td>
 		     <td><form:input path="dwt1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 		    <td rowspan="2">污泥量（吨）</td>
-		     <td><form:input path="sq1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td rowspan="2"><form:input path="sq1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 		    <td>电表读数(kw.h)</td>
 		    <td><form:input path="meter" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 		    <td>用电量(kw.h)</td>
@@ -69,7 +69,7 @@
 		  </tr>
 		  <tr>
 		    <td><form:input path="dwt2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-		     <td><form:input path="sq2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <%-- <td><form:input path="sq2" htmlEscape="false" maxlength="20" class="input-mini "/></td> --%>
 		    <td>自来水表读数(吨)</td>
 		     <td><form:input path="waterMeter" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 		    <td>用水量（吨）</td>

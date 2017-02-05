@@ -9,14 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.RangeReport;
 import com.thinkgem.jeesite.modules.report.service.DayReportService;
+import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 @Controller
@@ -56,4 +60,26 @@ public class RangeReportController extends BaseController {
         model.addAttribute("rangeReport", rangeReport);
 		return "modules/report/rangeReportIndex";
 	}
+	
+	@RequiresPermissions("range:report:view")
+    @RequestMapping(value = "export", method=RequestMethod.POST)
+    public String collectExportFile(RangeReport rangeReport, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		try {
+			DayReport report = new DayReport();
+			if(rangeReport !=null && !UserUtils.getUser().isAdmin()){
+				rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+			}
+			String company = OfficeUtils.getOfficeName(rangeReport.getOfficeId());
+            String fileName = company+"_"+rangeReport.getStartDate()+"-"+rangeReport.getEndDate()+".xls";
+            Page<DayReport> page = reportService.findRangeReport(new Page<DayReport>(request, response), report,rangeReport);
+    		new ExportExcelJxls(2).setDataList(page.getList())
+					    		.setCompany(company)
+					    		.setTime(rangeReport.getStartDate(), rangeReport.getEndDate())
+					    		.write(response, fileName);
+    		return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
+		}
+		return "redirect:" + adminPath + "/report/dayReportList";
+    }
 }

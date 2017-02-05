@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.report.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,17 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.report.entity.WeekReport;
+import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.Overproof;
 import com.thinkgem.jeesite.modules.report.service.WeekReportService;
 import com.thinkgem.jeesite.modules.report.service.OverproofService;
+import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 @Controller
@@ -35,6 +41,9 @@ public class WeekReportController extends BaseController {
 	@RequestMapping(value = {"index"})
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		WeekReport report = new WeekReport();
+		if(!UserUtils.getUser().isAdmin()){
+			report.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
 		Page<WeekReport> page = reportService.find(new Page<WeekReport>(request, response), report);
         model.addAttribute("page", page);
 		return "modules/report/weekReportList";
@@ -54,6 +63,9 @@ public class WeekReportController extends BaseController {
 	@RequiresPermissions("report:week:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(WeekReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
+		if(!UserUtils.getUser().isAdmin()){
+			report.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
 		Page<WeekReport> page = reportService.find(new Page<WeekReport>(request, response), report);
         model.addAttribute("page", page);
 		return "modules/report/weekReportList";
@@ -181,4 +193,38 @@ public class WeekReportController extends BaseController {
         model.addAttribute("report", report);
 		return "modules/report/WeekReportCollect";
 	}
+	
+	@RequiresPermissions("report:week:view")
+    @RequestMapping(value = "export")
+    public String export(String id, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		WeekReport report = reportService.get(id);
+		try {
+			String company = OfficeUtils.getOfficeName(report.getOfficeId());
+            String fileName = company+"_"+"周报表"+report.getReportDate()+".xls";
+            List inOverproofList = null;
+            List outOverproofList= null;
+            if (report!=null) {
+    			Overproof inEntity = new Overproof();
+    			inEntity.setDelFlag(Overproof.DEL_FLAG_NORMAL);
+    			inEntity.setMonthReportId(Integer.parseInt(report.getId()));
+    			inEntity.setType("3");
+    			inOverproofList =  overproofService.findList(inEntity);
+    			
+    			Overproof outEntity = new Overproof();
+    			outEntity.setDelFlag(Overproof.DEL_FLAG_NORMAL);
+    			outEntity.setMonthReportId(Integer.parseInt(report.getId()));
+    			outEntity.setType("4");
+    			outOverproofList =  overproofService.findList(outEntity);
+    		}
+    		new ExportExcelJxls(4).setWeekReport(report)
+    								.setCompany(company)
+    								.setOvInList(inOverproofList)
+    								.setOvOutList(outOverproofList)
+    								.write(response, fileName);
+    		return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导出周报表失败！失败信息："+e.getMessage());
+		}
+		return "modules/report/weekReportList";
+    }
 }

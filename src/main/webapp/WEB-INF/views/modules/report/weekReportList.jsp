@@ -63,6 +63,7 @@
 				<td>${report.reportDate}</td>
 				<shiro:hasPermission name="report:week:edit"><td>
     				<a href="${ctx}/report/week/noteditform?id=${report.id}">查看</a>
+    				<a href="${ctx}/report/week/export?id=${report.id}">导出</a>
 					<a href="${ctx}/report/week/delete?id=${report.id}" onclick="return confirmx('确认要删除此报表吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>

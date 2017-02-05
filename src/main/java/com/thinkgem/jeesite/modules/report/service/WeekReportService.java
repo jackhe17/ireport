@@ -13,6 +13,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.report.dao.WeekReportDao;
+import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.WeekReport;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
@@ -33,12 +34,14 @@ public class WeekReportService extends CrudService<WeekReportDao, WeekReport> {
 	
 	public Page<WeekReport> find(Page<WeekReport> page, WeekReport report) {
 		report.setPage(page);
+		report.setDelFlag(DayReport.DEL_FLAG_NORMAL);
 		page.setList(dao.findList(report));
 		return page;
 	}
 	
 	public Page<WeekReport> findWeekCollect(Page<WeekReport> page, WeekReport report) {
 		report.setPage(page);
+		report.setDelFlag(DayReport.DEL_FLAG_NORMAL);
 		page.setList(reportDao.getWeekReportCollect(report.getReportDate()));
 		return page;
 	}

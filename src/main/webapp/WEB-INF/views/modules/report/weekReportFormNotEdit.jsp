@@ -228,7 +228,6 @@
 			    <td>TN</td>
 			    <td>SS</td>
 			    <td>PH</td>
-			    <th><a href="javascript:" onclick="addClomnOut();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			   <c:choose> 
 			   <c:when test="${outOverproofList.size()>0}">

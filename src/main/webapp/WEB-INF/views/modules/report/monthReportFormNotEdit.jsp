@@ -184,7 +184,7 @@
 			  </tr>
 			</table>
 			<label class="lbl">超标情况</label><br>
-			<table  id ="tblIn" class="table table-striped table-bordered table-condensed">
+			<table   class="table table-striped table-bordered table-condensed">
 			  <tr>
 			    <td colspan="7">进水</td>
 			  </tr>
@@ -216,7 +216,7 @@
 		   		</c:otherwise>
 		   		</c:choose>  
 			</table>
-			<table  id ="tblOut" class="table table-striped table-bordered table-condensed">
+			<table   class="table table-striped table-bordered table-condensed">
 			  <tr>
 			    <td colspan="7">出水</td>
 			  </tr>
@@ -255,47 +255,49 @@
 			<label class="lbl">二,运行能耗及污泥产量</label><br>
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
-			    <td>加药名称</td>
-			    <td>PAC</td>
-			    <td>PAM-</td>
-			    <td>PAM+</td>
-			    <td>液氯</td>
-			    <td>漂水</td>
+			    <td>PAC(吨) </td>
+			    <td>铁盐/除磷剂(吨)</td>
+			    <td>PAM-(kg)</td>
+			    <td>PAM+(kg)</td>
+			    <td>消毒药剂(m3/kg)</td>
+			    <td>用电量(kw.h)</td>
+			    <td>用水量(吨)</td>
+			    <td>污泥量(吨)</td>
 			  </tr>
 			  <tr>
-			    <td>投药量</td>
-			    <td><form:input path="pacQty" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pamSubQty" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pamPlusQty" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="yeluQty" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="waterQty" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			  </tr>
-			  <tr>
-			    <td colspan="2">产泥量：<form:input path="genMudQty" htmlEscape="false" maxlength="20" class="input-mini "/>吨 </td>
-			    <td colspan="2">电耗量：<form:input path="powerQty" htmlEscape="false" maxlength="20" class="input-mini "/> Kw.h</td>
-			    <td colspan="2">自来水耗量：<form:input path="waterConsumQty" htmlEscape="false" maxlength="20" class="input-mini "/>吨</td>
+			    <td><form:input path="pac" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="ipra" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pam1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pam2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="disin" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="electricity" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="water" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="sq1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 			  </tr>
 			</table>
 		</div>
 		<div class="control-group">
-			<label class="lbl">三，设备运行情况及维修保养记录</label><br>
-			<div class="controls">
-				<form:textarea id="content" htmlEscape="true" path="runAndFixDesc" rows="1" maxlength="200" class="input-small"/>
-				<sys:ckeditor replace="content" />
-			</div>
+			<label class="lbl">三、本月完成的主要工作</label><br>
+			<form:textarea id="monthFinishWork" htmlEscape="true" path="monthFinishWork" class="input-small"/>
+				<sys:ckeditor replace="monthFinishWork" height="100px" />
 		</div>
 		<div class="control-group">
 			<label class="lbl">四，运行存在问题及解决措施</label><br>
 			<label class="lbl">运行存在问题</label><br>
 			<div class="controls">
-				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc" rows="1" maxlength="200" class="input-small"/>
-				<sys:ckeditor replace="problemDesc"  />
+				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  class="input-small"/>
+				<sys:ckeditor replace="problemDesc" height="100px" />
 			</div>
 			<label class="lbl">解决措施</label><br>
 			<div class="controls">
-				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc" rows="1" maxlength="200" class="input-small"/>
-				<sys:ckeditor replace="actionDesc"  />
+				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  class="input-small"/>
+				<sys:ckeditor replace="actionDesc" height="100px" />
 			</div>
+		</div>
+		<div class="control-group">
+			<label class="lbl">五、下周工作计划作</label><br>
+			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan" class="input-small"/>
+				<sys:ckeditor replace="nextMonthPlan" height="100px" />
 		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>

@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.report.web;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,7 +20,9 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.OpLog;
 import com.thinkgem.jeesite.modules.report.service.OpLogService;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
@@ -66,6 +70,9 @@ public class OpLogController extends BaseController {
 			officeID = opLog.getOfficeId();
 			logDate = opLog.getLogDate();
 		}
+		if(!UserUtils.getUser().isAdmin()){
+			opLog.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
 		Page<OpLog> page = opLogService.find(new Page<OpLog>(request, response), opLog);
 		if (page!=null && page.getList()!=null && page.getList().size()>0) {
 			String weather = page.getList().get(0).getWeather();
@@ -84,7 +91,7 @@ public class OpLogController extends BaseController {
 		return "modules/report/oplogList";
 	}
 
-	@RequiresPermissions("report:day:view")
+	@RequiresPermissions("report:oplog:view")
 	@RequestMapping(value = "form")
 	public String form(OpLog report, Model model) {
 		model.addAttribute("report", report);
@@ -92,7 +99,7 @@ public class OpLogController extends BaseController {
 		return "modules/report/opLogForm";
 	}
 	
-	@RequiresPermissions("report:day:edit")
+	@RequiresPermissions("report:oplog:edit")
 	@RequestMapping(value = "save")
 	public String save(OpLog oplog,@RequestParam("poolId")String[] poolIds,  
             						@RequestParam("waterStartTime")String[] waterStartTimes,  
@@ -130,7 +137,7 @@ public class OpLogController extends BaseController {
 		return "redirect:" + adminPath + "/report/oplog/index";
 	}
 	
-	@RequiresPermissions("report:day:edit")
+	@RequiresPermissions("report:oplog:edit")
 	@RequestMapping(value = "delete")
 	public String delete(OpLog report, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
@@ -146,4 +153,44 @@ public class OpLogController extends BaseController {
 		return "redirect:" + adminPath + "/report/oplog/index";
 	}
 
+	@RequiresPermissions("report:oplog:view")
+    @RequestMapping(value = "export", method=RequestMethod.POST)
+    public String export(OpLog opLog, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		String officeID = opLog.getOfficeId();
+		String logDate ="";
+		if (opLog == null || officeID ==null || "".equals(officeID) ) {
+			opLog = new OpLog();
+			officeID = UserUtils.getUser().getCompany().getId();
+			logDate = DateUtils.getDistanceDay(new Date(), -1);
+			opLog.setOfficeId(officeID);
+			opLog.setLogDate(logDate);
+		}else {
+			officeID = opLog.getOfficeId();
+			logDate = opLog.getLogDate();
+		}
+		String weather = null;
+		Page<OpLog> page = opLogService.find(new Page<OpLog>(request, response), opLog);
+		if (page!=null && page.getList()!=null && page.getList().size()>0) {
+			weather = page.getList().get(0).getWeather();
+		}
+		
+        Office office = OfficeUtils.getOffice(officeID);
+        if (null == office) {
+        	office = UserUtils.getUser().getCompany();
+		}
+        String company = OfficeUtils.getOfficeName(office.getId());
+        String fileName =company+"_"+"运行日志"+logDate+".xls";
+        try {
+			new ExportExcelJxls(5).setOplogList(page.getList())
+									.setCompany(company)
+									.setLogDate(logDate)
+									.setWeather(weather)
+									.write(response, fileName);
+        } catch (Exception e) {
+			addMessage(redirectAttributes, "导出运行日志失败！失败信息："+e.getMessage());
+		}
+        
+        
+		return "modules/report/oplogList";
+    }
 }

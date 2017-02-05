@@ -8,9 +8,9 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#btnExport").click(function(){
-			top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
+			top.$.jBox.confirm("确认要导出运行日志数据吗？","系统提示",function(v,h,f){
 				if(v=="ok"){
-					$("#searchForm").attr("action","${ctx}/sys/user/export");
+					$("#searchForm").attr("action","${ctx}/report/oplog/export");
 					$("#searchForm").submit();
 				}
 			},{buttonsFocus:1});
@@ -47,7 +47,7 @@
 							value="<fmt:parseDate value="${opLog.logDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/></li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
-				<!-- <input id="btnExport" class="btn btn-primary" type="button" value="导出"/> -->
+			<input id="btnExport" class="btn btn-primary" type="button" value="导出"/>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>
