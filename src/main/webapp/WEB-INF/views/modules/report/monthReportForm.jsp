@@ -264,26 +264,26 @@
 		</div>
 		<div class="control-group">
 			<label class="lbl">三、本月完成的主要工作</label><br>
-			<form:textarea id="monthFinishWork" htmlEscape="true" path="monthFinishWork" class="input-small"/>
-				<sys:ckeditor replace="monthFinishWork" height="100px" />
+			<form:textarea id="monthFinishWork" htmlEscape="true" path="monthFinishWork"  style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="monthFinishWork" height="100px" /> --%>
 		</div>
 		<div class="control-group">
 			<label class="lbl">四，运行存在问题及解决措施</label><br>
 			<label class="lbl">运行存在问题</label><br>
 			<div class="controls">
-				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  class="input-small"/>
-				<sys:ckeditor replace="problemDesc" height="100px" />
+				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"   style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="problemDesc" height="100px" /> --%>
 			</div>
 			<label class="lbl">解决措施</label><br>
 			<div class="controls">
-				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  class="input-small"/>
-				<sys:ckeditor replace="actionDesc" height="100px" />
+				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="actionDesc" height="100px" /> --%>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="lbl">五、下周工作计划作</label><br>
-			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan" class="input-small"/>
-				<sys:ckeditor replace="nextMonthPlan" height="100px" />
+			<label class="lbl">五、下周工作计划</label><br>
+			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan"  style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="nextMonthPlan" height="100px" /> --%>
 		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>

@@ -339,11 +339,11 @@
 			  <tr>
 			    <td rowspan="2">设备运行工况</td>
 			    <td >机电设备运行维护</td>
-			    <td ><form:textarea path="equipment" htmlEscape="false" rows="1" class="input-xxlarge "/></td>
+			    <td ><form:textarea path="equipment" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			  <tr>
 			    <td>中控仪表</td>
-			    <td><form:textarea path="instrument" htmlEscape="false" rows="1" class="input-xxlarge "/></td>
+			    <td><form:textarea path="instrument" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			</table>
 		</div>
@@ -351,11 +351,11 @@
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
 			    <td>工艺运行情况</td>
-			    <td><form:textarea path="handicraft" htmlEscape="false" rows="1" class="input-xxlarge"/></td>
+			    <td><form:textarea path="handicraft" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			  <tr>
 			    <td>存在问题及需要上级沟通解决问题:</td>
-			    <td><form:textarea path="problem" htmlEscape="false" rows="1"  class="input-xxlarge"/></td>
+			    <td><form:textarea path="problem" htmlEscape="false" rows="1"  style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			</table>
 		</div>

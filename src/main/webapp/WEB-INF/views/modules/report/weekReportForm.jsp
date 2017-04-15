@@ -199,7 +199,7 @@
 			    <th><a href="javascript:" onclick="addClomnIn();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			  <tr>
-			    <td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="20" class="input-mini"/></td>
 			    <td><input type="text" id="inCOD" name ="inCOD" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 			    <td><input type="text" id="inNh3h" name ="inNh3h" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 			    <td><input type="text" id="inTp" name ="inTp" htmlEscape="false" maxlength="20" class="input-mini "/></td>
@@ -238,26 +238,26 @@
 		</div>
 		<div class="control-group">
 			<label class="lbl">二、本周完成的主要工作</label><br>
-			<form:textarea id="weekFinishWork" htmlEscape="true" path="weekFinishWork" class="input-small"/>
-				<sys:ckeditor replace="weekFinishWork" height="100px" />
+			<form:textarea id="weekFinishWork" htmlEscape="true" path="weekFinishWork" style="width: 90%; height: 100px;"/>
+				<%--  <sys:ckeditor replace="weekFinishWork" height="100px" /> --%>
 		</div>
 		<div class="control-group">
 			<label class="lbl">四，运行存在问题及解决措施</label><br>
 			<label class="lbl">运行存在问题</label><br>
 			<div class="controls">
-				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  class="input-small"/>
-				<sys:ckeditor replace="problemDesc" height="100px" />
+				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="problemDesc" height="100px" /> --%>
 			</div>
 			<label class="lbl">解决措施</label><br>
 			<div class="controls">
-				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  class="input-small"/>
-				<sys:ckeditor replace="actionDesc" height="100px" />
+				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="actionDesc" height="100px" /> --%>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="lbl">四、下周工作计划作</label><br>
-			<form:textarea id="nextWeekPlan" htmlEscape="true" path="nextWeekPlan" class="input-small"/>
-				<sys:ckeditor replace="nextWeekPlan" height="100px" />
+			<label class="lbl">四、下周工作计划</label><br>
+			<form:textarea id="nextWeekPlan" htmlEscape="true" path="nextWeekPlan" style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
 		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>

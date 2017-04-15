@@ -188,7 +188,7 @@
 			  <tr>
 			    <td colspan="7">进水</td>
 			  </tr>
-			  <tr>
+			   <tr>
 			    <td>日期</td>
 			    <td>COD</td>
 			    <td>NH3-H</td>
@@ -196,25 +196,27 @@
 			    <td>TN</td>
 			    <td>SS</td>
 			    <td>PH</td>
+			    <!-- <th><a href="javascript:" onclick="addClomnIn();" class="btn"><i class="icon-plus"></i></a></th> -->
 			  </tr>
-			   <c:choose> 
+			     <c:choose> 
 			  <c:when test="${inOverproofList.size()>0}">
 				  <c:forEach items="${inOverproofList}" var="inOverproof">
 					   <tr>
-					    <td>${inOverproof.occurDate}</td>
-					    <td>${inOverproof.cod}</td>
-					    <td>${inOverproof.nhh}</td>
-					    <td>${inOverproof.tp}</td>
-					    <td>${inOverproof.tn}</td>
-					    <td>${inOverproof.ss}</td>
-					    <td>${inOverproof.ph}</td>
+					    <td><input type="text" id="inDate" name ="inDate" value="${inOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					   <td><input type="text" id="inCOD" name ="inCOD" value="${inOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="inNh3h" name ="inNh3h" value="${inOverproof.nhh}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="inTp" name ="inTp" value="${inOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="inTn" name ="inTn" value="${inOverproof.tn}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="inSs" name ="inSs" value="${inOverproof.ss}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="inPh" name ="inPh" value="${inOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <!-- <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td> -->
 					  </tr>
 				  </c:forEach>
 				  </c:when>
 				<c:otherwise>
 				 <tr><td colspan="7">没有数据</td></tr>
 		   		</c:otherwise>
-		   		</c:choose>  
+		   		</c:choose> 
 			</table>
 			<table   class="table table-striped table-bordered table-condensed">
 			  <tr>
@@ -228,18 +230,21 @@
 			    <td>TN</td>
 			    <td>SS</td>
 			    <td>PH</td>
+			   <!--  <th><a href="javascript:" onclick="addClomnOut();" class="btn"><i class="icon-plus"></i></a></th> -->
 			  </tr>
-			   <c:choose> 
+			    
+			     <c:choose> 
 			   <c:when test="${outOverproofList.size()>0}">
 				  <c:forEach items="${outOverproofList}" var="outOverproof">
 					   <tr>
-					    <td>${outOverproof.occurDate}</td>
-					    <td>${outOverproof.cod}</td>
-					    <td>${outOverproof.nhh}</td>
-					    <td>${outOverproof.tp}</td>
-					    <td>${outOverproof.tn}</td>
-					    <td>${outOverproof.ss}</td>
-					    <td>${outOverproof.ph}</td>
+					    <td><input type="text" id="outDate" name ="outDate" value="${outOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outCOD" name ="outCOD"  value="${outOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outNh3h" name ="outNh3h" value="${outOverproof.nhh}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outTp" name ="outTp" value="${outOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outTn" name ="outTn" value="${outOverproof.tn}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outSs" name ="outSs" value="${outOverproof.ss}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <td><input type="text" id="outPh" name ="outPh"  value="${outOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					    <!-- <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td> -->
 					  </tr>
 				  </c:forEach>
 				  </c:when>
@@ -278,26 +283,26 @@
 		</div>
 		<div class="control-group">
 			<label class="lbl">三、本月完成的主要工作</label><br>
-			<form:textarea id="monthFinishWork" htmlEscape="true" path="monthFinishWork" class="input-small"/>
-				<sys:ckeditor replace="monthFinishWork" height="100px" />
+			<form:textarea id="monthFinishWork" htmlEscape="true" path="monthFinishWork" style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="monthFinishWork" height="100px" /> --%>
 		</div>
 		<div class="control-group">
 			<label class="lbl">四，运行存在问题及解决措施</label><br>
 			<label class="lbl">运行存在问题</label><br>
 			<div class="controls">
-				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  class="input-small"/>
-				<sys:ckeditor replace="problemDesc" height="100px" />
+				<form:textarea id="problemDesc" htmlEscape="true" path="problemDesc"  style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="problemDesc" height="100px" /> --%>
 			</div>
 			<label class="lbl">解决措施</label><br>
 			<div class="controls">
-				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  class="input-small"/>
-				<sys:ckeditor replace="actionDesc" height="100px" />
+				<form:textarea id="actionDesc" htmlEscape="true" path="actionDesc"  style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="actionDesc" height="100px" /> --%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="lbl">五、下周工作计划作</label><br>
-			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan" class="input-small"/>
-				<sys:ckeditor replace="nextMonthPlan" height="100px" />
+			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan" style="width: 90%; height: 70px;"/>
+				<%-- <sys:ckeditor replace="nextMonthPlan" height="100px" /> --%>
 		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
