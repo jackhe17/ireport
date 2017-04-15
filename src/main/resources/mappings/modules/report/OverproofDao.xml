@@ -39,8 +39,8 @@
 			ph = #{ph},
 			type = #{type},
 			monthReportId = #{monthReportId},
-			logRemarks = #{logRemarks},
-			logRecorder = #{logRecorder},
+			<!-- logRemarks = #{logRemarks},
+			logRecorder = #{logRecorder}, -->
 			update_date = #{updateDate}
 		WHERE id = #{id}
 	</update>

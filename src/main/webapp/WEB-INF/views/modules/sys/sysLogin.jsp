@@ -48,9 +48,9 @@
 	</div>
 	<h1 class="form-signin-heading">${fns:getConfig('productName')}</h1>
 	<form id="loginForm" class="form-signin" action="${ctx}/login" method="post">
-		<label class="input-label" for="factoryname">厂区名</label></br>
+		<%-- <label class="input-label" for="factoryname">厂区名</label></br>
 		<sys:anontreeselect id="company" name="company.id" value="${user.company.id}" labelName="company.name" labelValue="${user.company.name}" 
-				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></br>
+				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></br> --%>
 		<label class="input-label" for="username">登录名</label>
 		<input type="text" id="username" name="username" class="input-block-level required" value="${username}">
 		<label class="input-label" for="password">密码</label>

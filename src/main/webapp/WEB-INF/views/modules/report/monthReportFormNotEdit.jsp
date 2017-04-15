@@ -86,7 +86,7 @@
 		<li ><a href="${ctx}/report/month/list/">月报表列表</a></li>
 		<li class="active"><a href="${ctx}/report/month/form">月报表添加</a></li>
 	</ul><br/>
-	<form:form id="inputForm" modelAttribute="report" action="${ctx}/report/month/save" method="post" class="form-horizontal">
+	<form:form id="inputForm" modelAttribute="report" action="${ctx}/report/month/save2" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
 		<form:hidden path="id"/>
 		<div class="control-group">
@@ -202,13 +202,14 @@
 			  <c:when test="${inOverproofList.size()>0}">
 				  <c:forEach items="${inOverproofList}" var="inOverproof">
 					   <tr>
-					    <td><input type="text" id="inDate" name ="inDate" value="${inOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					   <td><input type="text" id="inCOD" name ="inCOD" value="${inOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="inNh3h" name ="inNh3h" value="${inOverproof.nhh}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="inTp" name ="inTp" value="${inOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="inTn" name ="inTn" value="${inOverproof.tn}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="inSs" name ="inSs" value="${inOverproof.ss}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="inPh" name ="inPh" value="${inOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					   <td style="display:none;"><input type="text" id="inId" name ="inId" value="${inOverproof.id}" htmlEscape="false" maxlength="20" class="input-mini " /></td><!-- readonly="readonly" -->
+					    <td><input type="text" id="inDate" name ="inDate" value="${inOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					   <td><input type="text" id="inCOD" name ="inCOD" value="${inOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="inNh3h" name ="inNh3h" value="${inOverproof.nhh}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="inTp" name ="inTp" value="${inOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="inTn" name ="inTn" value="${inOverproof.tn}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="inSs" name ="inSs" value="${inOverproof.ss}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="inPh" name ="inPh" value="${inOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
 					    <!-- <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td> -->
 					  </tr>
 				  </c:forEach>
@@ -237,13 +238,14 @@
 			   <c:when test="${outOverproofList.size()>0}">
 				  <c:forEach items="${outOverproofList}" var="outOverproof">
 					   <tr>
-					    <td><input type="text" id="outDate" name ="outDate" value="${outOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outCOD" name ="outCOD"  value="${outOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outNh3h" name ="outNh3h" value="${outOverproof.nhh}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outTp" name ="outTp" value="${outOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outTn" name ="outTn" value="${outOverproof.tn}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outSs" name ="outSs" value="${outOverproof.ss}"  htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
-					    <td><input type="text" id="outPh" name ="outPh"  value="${outOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " readonly="readonly"/></td>
+					   <td style="display:none;"><input type="text" id="outId" name ="outId" value="${outOverproof.id}" htmlEscape="false" maxlength="20" class="input-mini "/></td><!--  -->
+					    <td><input type="text" id="outDate" name ="outDate" value="${outOverproof.occurDate}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outCOD" name ="outCOD"  value="${outOverproof.cod}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outNh3h" name ="outNh3h" value="${outOverproof.nhh}"  htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outTp" name ="outTp" value="${outOverproof.tp}"  htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outTn" name ="outTn" value="${outOverproof.tn}"  htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outSs" name ="outSs" value="${outOverproof.ss}"  htmlEscape="false" maxlength="20" class="input-mini " /></td>
+					    <td><input type="text" id="outPh" name ="outPh"  value="${outOverproof.ph}" htmlEscape="false" maxlength="20" class="input-mini " /></td>
 					    <!-- <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td> -->
 					  </tr>
 				  </c:forEach>

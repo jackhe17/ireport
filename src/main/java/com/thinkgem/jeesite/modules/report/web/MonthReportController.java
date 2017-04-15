@@ -186,6 +186,68 @@ public class MonthReportController extends BaseController {
 	}
 	
 	@RequiresPermissions("report:month:edit")
+	@RequestMapping(value = "save2")
+	public String save2(MonthReport report, Model model, RedirectAttributes redirectAttributes,
+			@RequestParam("inId")String[] inIds, 
+			@RequestParam("inDate")String[] inDates,  
+			@RequestParam("inCOD")String[] inCODs,  
+			@RequestParam("inNh3h")String[] inNh3hs, 
+			@RequestParam("inTp")String[] inTps,  
+			@RequestParam("inTn")String[] inTns,
+			@RequestParam("inSs")String[] inSss,  
+			@RequestParam("inPh")String[] inPhs,
+			@RequestParam("outId")String[] outIds,  
+			@RequestParam("outDate")String[] outDates,  
+			@RequestParam("outCOD")String[] outCODs,  
+			@RequestParam("outNh3h")String[] outNh3hs, 
+			@RequestParam("outTp")String[] outTps,  
+			@RequestParam("outTn")String[] outTns,
+			@RequestParam("outSs")String[] outSss,  
+			@RequestParam("outPh")String[] outPhs) {
+		if(Global.isDemoMode()){
+			addMessage(redirectAttributes, "演示模式，不允许操作！");
+			return "redirect:" + adminPath + "/report/month/index";
+		}
+		if (!beanValidator(model, report)){
+//			return form(report, model);
+		}
+		int id = Integer.valueOf(report.getId());
+		reportService.saveAndReturn(report);
+		int inSize = inDates.length;
+		for(int i =0;i<inSize;i++){
+			Overproof inOverproof = new Overproof();
+			inOverproof.setId(inIds[i]);
+			inOverproof.setType("1");
+			inOverproof.setMonthReportId(id);
+			inOverproof.setOccurDate(inDates[i]);
+			inOverproof.setCod(inCODs[i]);
+			inOverproof.setNhh(inNh3hs[i]);
+			inOverproof.setTp(inTps[i]);
+			inOverproof.setTn(inTns[i]);
+			inOverproof.setSs(inSss[i]);
+			inOverproof.setPh(inPhs[i]);
+			overproofService.save(inOverproof);
+		}
+		int outSize = outDates.length;
+		for(int i =0;i<outSize;i++){
+			Overproof outOverproof = new Overproof();
+			outOverproof.setId(outIds[i]);
+			outOverproof.setType("2");
+			outOverproof.setMonthReportId(id);
+			outOverproof.setOccurDate(outDates[i]);
+			outOverproof.setCod(outCODs[i]);
+			outOverproof.setNhh(outNh3hs[i]);
+			outOverproof.setTp(outTps[i]);
+			outOverproof.setTn(outTns[i]);
+			outOverproof.setSs(outSss[i]);
+			outOverproof.setPh(outPhs[i]);
+			overproofService.save(outOverproof);
+		}
+		addMessage(redirectAttributes, "保存生产运行日报表'" + report.getId() + "'成功");
+		return "redirect:" + adminPath + "/report/month/index";
+	}
+	
+	@RequiresPermissions("report:month:edit")
 	@RequestMapping(value = "delete")
 	public String delete(MonthReport report, RedirectAttributes redirectAttributes) {
 		if(Global.isDemoMode()){
