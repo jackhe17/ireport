@@ -43,9 +43,12 @@
 		<%-- <li><label class="input-label">厂区：</label><sys:treeselect id="office" name="officeId" value="${user.company.id}" labelName="company.name" labelValue="${user.company.name}" 
 				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></li>
 		 --%>
-		<li><label class="input-label">汇报月度：</label><input id="reportMonth" name="reportMonth" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
+		<li><label>厂区：</label><sys:treeselect id="office" name="officeId" value="${office.id}" labelName="office.name" labelValue="${office.name}" 
+				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></li>
+		<li><label class="input-label">月度：</label><input id="reportMonth" name="reportMonth" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 						value="<fmt:parseDate value="${report.reportMonth}" pattern="yyyy-MM" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM"/>"
 						onclick="WdatePicker({dateFmt:'yyyy-MM',isShowClear:true});"/></li>
+					
 		<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询" onclick="return page();"/>
 			<!-- <input id="btnExport" class="btn btn-primary" type="button" value="导出"/> -->
 		<li class="clearfix"></li>
@@ -61,11 +64,14 @@
 				<td><a href="${ctx}/report/month/noteditform?id=${report.id}">${report.id}</a></td>
 				<td>${fns:getOfficeName(report.officeId)}</a></td>
 				<td>${report.reportMonth}</td>
-				<shiro:hasPermission name="report:month:edit"><td>
+				<td>
     				<a href="${ctx}/report/month/noteditform?id=${report.id}">查看</a>
     				<a href="${ctx}/report/month/export?id=${report.id}">导出</a>
+    				<shiro:hasPermission name="report:month:edit">
+    				<a href="${ctx}/report/day/form?id=${report.id}">修改</a>
 					<a href="${ctx}/report/month/delete?id=${report.id}" onclick="return confirmx('确认要删除此报表吗？', this.href)">删除</a>
-				</td></shiro:hasPermission>
+					</shiro:hasPermission>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

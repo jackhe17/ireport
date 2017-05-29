@@ -106,7 +106,7 @@
 				<c:forEach items="${page.list}" var="dayReport">
 					<tr>
 						<td>${dayReport.id}</td>
-					    <td>${fns:getOfficeName(dayReport.officeId)}</td>
+					    <td>${fns:getOfficeSimpleName(dayReport.officeId)}</td>
 					    <td>${dayReport.weather}</td>
 					    <td>${dayReport.dwt1}</td>
 					    <td>${dayReport.dwt2}</td>

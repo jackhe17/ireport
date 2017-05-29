@@ -151,6 +151,17 @@ public class UserUtils {
 		return roleList;
 	}
 	
+	public static boolean isSuperUser(){
+		List<Role> roles = getRoleList();
+		for (Role role : roles) {
+			String enname = role.getEnname();
+			if(enname !=null && enname.equalsIgnoreCase("SuperUser")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * 获取当前用户授权菜单
 	 * @return

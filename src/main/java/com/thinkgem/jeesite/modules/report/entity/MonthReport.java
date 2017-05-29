@@ -9,7 +9,7 @@ public class MonthReport extends DataEntity<MonthReport> {
 	 */
 	private static final long serialVersionUID = 5349840503258398496L;
 	String officeId;
-//	String officeName;
+	String officeName;
 	String officeType;
 	String reportDate;//汇报时间
 	String reportMonth;//汇报月度
@@ -69,6 +69,12 @@ public class MonthReport extends DataEntity<MonthReport> {
 	
 	String actionDesc;//解决措施
 	String nextMonthPlan;//解决措施
+	public String getOfficeName() {
+		return officeName;
+	}
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
 	public String getOfficeId() {
 		return officeId;
 	}

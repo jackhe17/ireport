@@ -28,7 +28,7 @@
 <body>
 <ul class="nav nav-tabs">
 		<li ><a href="${ctx}/report/day/list/">日报表列表</a></li>
-		<li class="active"><a href="${ctx}/report/day/form">日报表添加</a></li>
+		<shiro:hasPermission name="report:day:edit"><li><a href="${ctx}/report/day/form">日报表添加</a></li></shiro:hasPermission>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="dayReport" action="${ctx}/report/day/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
@@ -45,58 +45,63 @@
 							value="<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/></td>
 		    <td>天气</td>
-		    <td><form:input path="weather" htmlEscape="false" maxlength="20" class="input-mini2 "/></td>
+		    <td><form:input path="weather" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>温度</td>
-		    <td><form:input path="temperature" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <td><form:input path="temperature" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>湿度</td>
-		    <td><form:input path="humidity" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <td><form:input path="humidity" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>
 		    <td>值班人员</td>
-		    <td colspan="2">早班：<form:input path="earlyWorker" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-		    <td colspan="2">中班：<form:input path="middleWorker" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-		    <td colspan="3">晚班：<form:input path="lastWorker" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <td colspan="2">早班：<form:input path="earlyWorker" htmlEscape="false" maxlength="50" class="input-mini2 "/></td>
+		    <td colspan="2">中班：<form:input path="middleWorker" htmlEscape="false" maxlength="50" class="input-mini2 "/></td>
+		    <td colspan="3">晚班：<form:input path="lastWorker" htmlEscape="false" maxlength="50" class="input-mini2 "/></td>
 		  </tr>
 		  <tr>
 		    <td rowspan="2">日处理水量（m3）</td>
-		     <td><form:input path="dwt1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="dwt1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td rowspan="2">污泥量（吨）</td>
-		     <td rowspan="2"><form:input path="sq1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td rowspan="2"><form:input path="sq1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>电表读数(kw.h)</td>
-		    <td><form:input path="meter" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <td><form:input path="meter" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>用电量(kw.h)</td>
-		     <td><form:input path="electricity" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="electricity" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>
-		    <td><form:input path="dwt2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-		    <%-- <td><form:input path="sq2" htmlEscape="false" maxlength="20" class="input-mini "/></td> --%>
+		    <td><form:input path="dwt2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+		    <%-- <td><form:input path="sq2" htmlEscape="false" maxlength="50" class="input-mini "/></td> --%>
 		    <td>自来水表读数(吨)</td>
-		     <td><form:input path="waterMeter" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="waterMeter" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>用水量（吨）</td>
-		     <td><form:input path="water" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="water" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>
 		    <td>PAC（吨）</td>
-		     <td><form:input path="pac" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="pac" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>铁盐/除磷剂（吨）</td>
-		     <td><form:input path="ipra" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="ipra" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>PAM-（kg）</td>
-		     <td><form:input path="pam1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="pam1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>PAM+（kg）</td>
-		     <td><form:input path="pam2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="pam2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>
-		    <td rowspan="2"><p align="center">消毒药剂</p>
-		    <p align="center">（M3/kg）</p></td>
-		     <td rowspan="2"><form:input path="disin" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		    <td >消毒药剂1（M3/kg）</p>
+		    <td ><form:input path="disin" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+		    <td >消毒药剂2（M3/kg）</p>
+		    <td ><form:input path="disin2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+		    <td >其他药剂（M3/kg）</p>
+		    <td ><form:input path="disin3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+		  </tr>
+		  <tr>
 		    <td>停进水时间</td>
-		     <td><form:input path="stopwatertime" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="stopwatertime" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>停产原因</td>
-		    <td colspan="3"><form:textarea path="stopreason" htmlEscape="false" rows="1" maxlength="200" class="input-xlarge" /></td>
+		    <td colspan="3"><form:textarea path="stopreason" htmlEscape="false" rows="1" maxlength="500" class="input-xlarge" /></td>
 		  </tr>
 		  <tr>
 		    <td>恢复进水时间</td>
-		     <td><form:input path="recoverytime" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+		     <td><form:input path="recoverytime" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td>情况说明</td>
 		    <td colspan="3"><form:textarea path="reportDesc" htmlEscape="false" rows="1" maxlength="200" class="input-xlarge"/></td>
 		  </tr>
@@ -120,95 +125,95 @@
 			    <td>08:00</td>
 			    <td>12:00</td>
 			    <td>16:00</td>
-			    <td>20:00</td>
+			    <td>50:00</td>
 			  </tr>
 			  <tr>
 			    <td>COD</td>
-			    <td><form:input path="cod1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="cod8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="cod1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="cod8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>氨氮</td>
-			    <td><form:input path="an1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="an8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="an1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="an8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>TN</td>
-			    <td><form:input path="tn1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tn8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="tn1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tn8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>TP</td>
-			    <td><form:input path="tp1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tp8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="tp1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tp8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>沉淀池SS</td>
-			    <td><form:input path="stss1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stss8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="stss1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stss8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>沉淀池TP</td>
-			    <td><form:input path="sttp1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sttp8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="sttp1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sttp8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>颜色</td>
-			    <td><form:input path="color1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="color8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="color1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="color8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>气味</td>
-			    <td><form:input path="smell1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="smell8" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="smell1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="smell8" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 		</div>
@@ -228,67 +233,67 @@
 			    <td>08:00</td>
 			    <td>12:00</td>
 			    <td>16:00</td>
-			    <td>20:00</td>
+			    <td>50:00</td>
 			  </tr>
 			  <tr>
 			    <td>提升泵1</td>
-			    <td><form:input path="pumpFirst1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpFirst7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpFirst7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>提升泵2</td>
-			    <td><form:input path="pumpSecond1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpSecond7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpSecond7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>提升泵3</td>
-			    <td><form:input path="pumpThird1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pumpThird7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pumpThird1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pumpThird7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>沉淀池吸/刮泥机</td>
-			    <td><form:input path="stsos1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="stsos7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="stsos1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="stsos7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>紫外消毒灯</td>
-			    <td><form:input path="lamp1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="lamp7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="lamp1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="lamp7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>压泥机</td>
-			    <td><form:input path="pmm1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm3" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm4" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm5" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm6" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pmm7" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="pmm1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm4" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm5" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm6" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pmm7" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 		</div>
@@ -303,11 +308,11 @@
 			    <td>污泥回流比（%）</td>
 			  </tr>
 			  <tr>
-			    <td><form:input path="sv30" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sludge" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="oxygen" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="mixture" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="reflux" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="sv30" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sludge" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="oxygen" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="mixture" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="reflux" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 		</div>
@@ -317,20 +322,20 @@
 			  <tr>
 			    <td rowspan="3">快渗池情况</td>
 			    <td><p align="center">养护情况</td>
-			    <td colspan="4"><form:textarea path="conditionDesc" htmlEscape="false" rows="1" maxlength="200" class="input-xxlarge"/></td>
+			    <td colspan="4"><form:textarea path="conditionDesc" htmlEscape="false" rows="1" maxlength="500" class="input-xxlarge"/></td>
 			  </tr>
 			  <tr>
 			    <td rowspan="2">落干时间(min)</td>
 			    <td>≤60</td>
-			    <td>60-120</td>
+			    <td>60-150</td>
 			    <td>120-180</td>
 			    <td>180以上</td>
 			  </tr>
 			  <tr>
-			    <td><form:input path="lt60" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="g6l12" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="g12l18" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="gt180" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="lt60" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="g6l12" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="g12l18" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="gt180" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 		</div>
@@ -363,7 +368,7 @@
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
 			    <td>制表人:</td>
-			    <td><form:input path="lt60" htmlEscape="false" maxlength="20" class="input-mini " /></td>
+			    <td><form:input path="lt60" htmlEscape="false" maxlength="50" class="input-mini " /></td>
 			    <td>审核人:</td>
 			    <td><form:input path="lt60" htmlEscape="false" maxlength="20" class="input-mini "/></td>
 			  </tr>

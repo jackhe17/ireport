@@ -10,6 +10,7 @@ public class DayReport extends DataEntity<DayReport> {
 	 */
 	private static final long serialVersionUID = -962148974396642437L;
 	private String officeId;
+	private String officeName;
 	private String reportDate;//日期
 	private String weather;//天气
 	private String temperature;//温度
@@ -30,6 +31,8 @@ public class DayReport extends DataEntity<DayReport> {
 	private String pam1;//PAM-
 	private String pam2;//PAM+
 	private String disin;//消毒药剂
+	private String disin2;//消毒药剂
+	private String disin3;//消毒药剂
 	private String stopwatertime;//停进水时间
 	private String stopreason;//停产原因
 	private String recoverytime;//恢复进水时间
@@ -179,6 +182,12 @@ public class DayReport extends DataEntity<DayReport> {
 	private String problem;//存在问题及需要上级沟通解决问题
 
 	
+	public String getOfficeName() {
+		return officeName;
+	}
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
 	@ExcelField(title="日期", type=1, align=2, sort=1)
 	public String getReportDate() {
 		return reportDate;
@@ -226,10 +235,6 @@ public class DayReport extends DataEntity<DayReport> {
 	@ExcelField(title="PAM+(kg)", type=1, align=2, sort=12)
 	public String getPam2() {
 		return pam2;
-	}
-	@ExcelField(title="铁盐/除磷剂（吨）", type=1, align=2, sort=13)
-	public String getDisin() {
-		return disin;
 	}
 	@ExcelField(title="COD", type=1, align=2, sort=14)
 	public String getCod1() {
@@ -406,9 +411,6 @@ public class DayReport extends DataEntity<DayReport> {
 		this.pam2 = pam2;
 	}
 
-	public void setDisin(String disin) {
-		this.disin = disin;
-	}
 	public String getStopwatertime() {
 		return stopwatertime;
 	}
@@ -1138,6 +1140,25 @@ public class DayReport extends DataEntity<DayReport> {
 	}
 	public void setStss1(String stss1) {
 		this.stss1 = stss1;
+	}
+	
+	public String getDisin() {
+		return disin;
+	}
+	public void setDisin(String disin) {
+		this.disin = disin;
+	}
+	public String getDisin2() {
+		return disin2;
+	}
+	public void setDisin2(String disin2) {
+		this.disin2 = disin2;
+	}
+	public String getDisin3() {
+		return disin3;
+	}
+	public void setDisin3(String disin3) {
+		this.disin3 = disin3;
 	}
 
 

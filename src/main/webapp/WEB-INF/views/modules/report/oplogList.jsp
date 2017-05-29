@@ -33,7 +33,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/report/oplog/list">运行日志查询</a></li>
-		<li><a href="${ctx}/report/oplog/form">运行日志添加</a></li>
+		<shiro:hasPermission name="report:month:edit"><li><a href="${ctx}/report/oplog/form">运行日志添加</a></li></shiro:hasPermission>
 	</ul>
 	<sys:message content="${message}"/>
 	<form:form id="searchForm" modelAttribute="oplog" action="${ctx}/report/oplog/list" method="post" class="breadcrumb form-search ">

@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.report.web;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
@@ -33,7 +36,16 @@ public class RangeReportController extends BaseController {
 	@RequiresPermissions("range:report:view")
 	@RequestMapping(value = {"index"})
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
-		 model.addAttribute("user", UserUtils.getUser());
+		 DayReport report = new DayReport();
+		 RangeReport rangeReport  = new RangeReport();
+			rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+			Date date = new Date();
+			rangeReport.setStartDate(DateUtils.getDistanceDay(date, -30));
+			rangeReport.setEndDate(DateUtils.getDistanceDay(date, -1));
+			Page<DayReport> page = reportService.findRangeReport(new Page<DayReport>(request, response), report,rangeReport);
+	        model.addAttribute("page", page);
+	        model.addAttribute("user", UserUtils.getUser());
+	        model.addAttribute("rangeReport", rangeReport);
 		return "modules/report/rangeReportIndex";
 	}
 	
@@ -51,8 +63,15 @@ public class RangeReportController extends BaseController {
 	@RequestMapping(value = {"generate", ""})
 	public String generate(RangeReport rangeReport, HttpServletRequest request, HttpServletResponse response, Model model) {
 		DayReport report = new DayReport();
-		if(rangeReport !=null && !UserUtils.getUser().isAdmin()){
+		if(rangeReport !=null && !UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
+		if(rangeReport==null){
+			rangeReport = new RangeReport();
+			rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+			Date date = new Date();
+			rangeReport.setStartDate(DateUtils.getDistanceDay(date, -30));
+			rangeReport.setEndDate(DateUtils.getDistanceDay(date, -1));
 		}
 		Page<DayReport> page = reportService.findRangeReport(new Page<DayReport>(request, response), report,rangeReport);
         model.addAttribute("page", page);
@@ -66,7 +85,7 @@ public class RangeReportController extends BaseController {
     public String collectExportFile(RangeReport rangeReport, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
 			DayReport report = new DayReport();
-			if(rangeReport !=null && !UserUtils.getUser().isAdmin()){
+			if(rangeReport !=null && !UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 				rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
 			}
 			String company = OfficeUtils.getOfficeName(rangeReport.getOfficeId());

@@ -9,7 +9,7 @@ public class WeekReport extends DataEntity<WeekReport> {
 	 */
 	private static final long serialVersionUID = 5349840503258398496L;
 	String officeId;
-//	String officeName;
+	String officeName;
 //	String ftype;
 	String reportDate;//汇报时间
 	String waterTreatment1;//处理水量
@@ -58,6 +58,12 @@ public class WeekReport extends DataEntity<WeekReport> {
 	String problemDesc;
 	String actionDesc;
 	String nextWeekPlan;
+	public String getOfficeName() {
+		return officeName;
+	}
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
 	public String getOfficeId() {
 		return officeId;
 	}

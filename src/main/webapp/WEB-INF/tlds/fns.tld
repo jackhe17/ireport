@@ -69,7 +69,13 @@
     <function-signature>com.thinkgem.jeesite.modules.sys.entity.Office getOfficeName(java.lang.String)</function-signature>
     <example>${fns:getOfficeName(id)}</example>  
   </function>
-  
+   <function>
+    <description>根据编码获取用户对象</description>
+    <name>getOfficeSimpleName</name>
+    <function-class>com.thinkgem.jeesite.modules.sys.utils.OfficeUtils</function-class>
+    <function-signature>com.thinkgem.jeesite.modules.sys.entity.Office getOfficeSimpleName(java.lang.String)</function-signature>
+    <example>${fns:getOfficeSimpleName(id)}</example>  
+  </function>
   <function>
     <description>获取授权用户信息</description>
     <name>getPrincipal</name>

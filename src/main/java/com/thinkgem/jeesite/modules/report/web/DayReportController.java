@@ -24,9 +24,19 @@ import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.service.DayReportService;
+import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
-
+/**
+ * 
+ *
+alter table `report_day`   
+Add column disin2 varchar(50) default NULL AFTER `disin`; 
+alter table `report_day` 
+Add column disin3 varchar(50) default NULL AFTER `disin`;
+ * @author Jack
+ *
+ */
 @Controller
 @RequestMapping(value = "${adminPath}/report/day")
 public class DayReportController extends BaseController {
@@ -38,8 +48,8 @@ public class DayReportController extends BaseController {
 	@RequestMapping(value = {"index"})
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		DayReport report = new DayReport();
-		report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
-		if(!UserUtils.getUser().isAdmin()){
+//		report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
+		if(!UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
@@ -62,13 +72,33 @@ public class DayReportController extends BaseController {
 	@RequiresPermissions("report:day:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(DayReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		if(report!=null && !UserUtils.getUser().isAdmin()){
+		
+		
+		if(report!=null && !UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
+		String officeID = report.getOfficeId();
+		if (report == null || officeID ==null || "".equals(officeID) ) {
+			report = new DayReport();
+//			officeID = UserUtils.getUser().getCompany().getId();
+//			report.setOfficeId(officeID);
+		}else {
+			officeID = report.getOfficeId();
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
         model.addAttribute("page", page);
         model.addAttribute("user", UserUtils.getUser());
         model.addAttribute("report", report);
+        model.addAttribute("officeId", officeID);
+        Office office = OfficeUtils.getOffice(officeID);
+        if (null == office) {
+//        	office = UserUtils.getUser().getCompany();
+        	office = new Office();
+        	office.setId("");
+        	office.setName("");
+		}
+        
+        model.addAttribute("office", office);
 		return "modules/report/dayReportList";
 	}
 	@RequiresPermissions("report:day:view")
@@ -78,7 +108,16 @@ public class DayReportController extends BaseController {
 		model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportForm";
 	}
-	
+	@RequiresPermissions("report:day:view")
+	@RequestMapping(value = "noeditform")
+	public String noeditform(DayReport report, Model model) {
+		String officeID = report.getOfficeId();
+		 Office office = OfficeUtils.getOffice(officeID);
+		 report.setOfficeName(office.getName());
+		 model.addAttribute("report", report);
+		model.addAttribute("user", UserUtils.getUser());
+		return "modules/report/dayReportNoEditForm";
+	}
 	@RequiresPermissions("report:day:edit")
 	@RequestMapping(value = "save")
 	public String save(DayReport report, Model model, RedirectAttributes redirectAttributes) {
@@ -109,7 +148,7 @@ public class DayReportController extends BaseController {
 	public String collectindex(HttpServletRequest request, HttpServletResponse response, Model model) {
 		DayReport report = new DayReport();
 		report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
-		if(!UserUtils.getUser().isAdmin()){
+		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
@@ -122,7 +161,7 @@ public class DayReportController extends BaseController {
 	@RequiresPermissions("report:day:collect")
 	@RequestMapping(value = "collect")
 	public String collect(DayReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		if(!UserUtils.getUser().isAdmin()){
+		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);

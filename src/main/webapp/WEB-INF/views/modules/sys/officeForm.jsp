@@ -55,6 +55,13 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">机构名称缩写:</label>
+			<div class="controls">
+				<form:input path="simplename" htmlEscape="false" maxlength="50" class="required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">机构编码:</label>
 			<div class="controls">
 				<form:input path="code" htmlEscape="false" maxlength="50"/>

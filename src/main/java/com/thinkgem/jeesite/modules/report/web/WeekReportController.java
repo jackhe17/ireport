@@ -22,9 +22,11 @@ import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.report.entity.WeekReport;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
+import com.thinkgem.jeesite.modules.report.entity.MonthReport;
 import com.thinkgem.jeesite.modules.report.entity.Overproof;
 import com.thinkgem.jeesite.modules.report.service.WeekReportService;
 import com.thinkgem.jeesite.modules.report.service.OverproofService;
+import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
@@ -41,7 +43,7 @@ public class WeekReportController extends BaseController {
 	@RequestMapping(value = {"index"})
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		WeekReport report = new WeekReport();
-		if(!UserUtils.getUser().isAdmin()){
+		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<WeekReport> page = reportService.find(new Page<WeekReport>(request, response), report);
@@ -63,11 +65,30 @@ public class WeekReportController extends BaseController {
 	@RequiresPermissions("report:week:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(WeekReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		if(!UserUtils.getUser().isAdmin()){
+		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
+		String officeID = report.getOfficeId();
+		if (report == null || officeID ==null || "".equals(officeID) ) {
+			report = new WeekReport();
+//			officeID = UserUtils.getUser().getCompany().getId();
+//			report.setOfficeId(officeID);
+		}else {
+			officeID = report.getOfficeId();
 		}
 		Page<WeekReport> page = reportService.find(new Page<WeekReport>(request, response), report);
         model.addAttribute("page", page);
+        model.addAttribute("report", report);
+        model.addAttribute("officeId", officeID);
+        Office office = OfficeUtils.getOffice(officeID);
+        if (null == office) {
+//        	office = UserUtils.getUser().getCompany();
+        	office = new Office();
+        	office.setId("");
+        	office.setName("");
+		}
+        
+        model.addAttribute("office", office);
 		return "modules/report/weekReportList";
 	}
 
@@ -82,6 +103,9 @@ public class WeekReportController extends BaseController {
 	@RequiresPermissions("report:week:view")
 	@RequestMapping(value = "noteditform")
 	public String noteditform(WeekReport report, Model model) {
+		String officeID = report.getOfficeId();
+		 Office office = OfficeUtils.getOffice(officeID);
+		 report.setOfficeName(office.getName());
 		model.addAttribute("report", report);
 		model.addAttribute("user", UserUtils.getUser());
 		if (report!=null) {

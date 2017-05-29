@@ -24,6 +24,7 @@ public class Office extends TreeEntity<Office> {
 	private Area area;		// 归属区域
 	private String code; 	// 机构编码
 //	private String name; 	// 机构名称
+	private String simplename; 	// 机构名称
 //	private Integer sort;		// 排序
 	private String type; 	// 机构类型（1：公司；2：部门；3：小组）
 	private String grade; 	// 机构等级（1：一级；2：二级；3：三级；4：四级）
@@ -217,6 +218,14 @@ public class Office extends TreeEntity<Office> {
 
 	public void setFtype(String ftype) {
 		this.ftype = ftype;
+	}
+
+	public String getSimplename() {
+		return simplename;
+	}
+
+	public void setSimplename(String simplename) {
+		this.simplename = simplename;
 	}
 
 	@Override

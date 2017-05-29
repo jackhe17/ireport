@@ -58,6 +58,10 @@ public class OpLogController extends BaseController {
 	@RequiresPermissions("report:oplog:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(OpLog opLog, HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
+			opLog.setOfficeId(UserUtils.getUser().getCompany().getId());
+		}
 		String officeID = opLog.getOfficeId();
 		String logDate ="";
 		if (opLog == null || officeID ==null || "".equals(officeID) ) {
@@ -69,9 +73,6 @@ public class OpLogController extends BaseController {
 		}else {
 			officeID = opLog.getOfficeId();
 			logDate = opLog.getLogDate();
-		}
-		if(!UserUtils.getUser().isAdmin()){
-			opLog.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<OpLog> page = opLogService.find(new Page<OpLog>(request, response), opLog);
 		if (page!=null && page.getList()!=null && page.getList().size()>0) {

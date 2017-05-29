@@ -34,13 +34,13 @@
 		    var newTd5 = newTr.insertCell();
 		    var newTd6 = newTr.insertCell();
 		    var newTd7 = newTr.insertCell();
-		    newTd0.innerHTML = '<tr><td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd1.innerHTML = '<td><input type="text" id="inCOD" name ="inCOD" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd2.innerHTML = '<td><input type="text" id="inNh3h" name ="inNh3h" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd3.innerHTML = '<td><input type="text" id="inTp" name ="inTp" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd4.innerHTML = '<td><input type="text" id="inTn" name ="inTn" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd5.innerHTML = '<td><input type="text" id="inSs" name ="inSs" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd6.innerHTML = '<td><input type="text" id="inPh" name ="inPh" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
+		    newTd0.innerHTML = '<tr><td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd1.innerHTML = '<td><input type="text" id="inCOD" name ="inCOD" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd2.innerHTML = '<td><input type="text" id="inNh3h" name ="inNh3h" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd3.innerHTML = '<td><input type="text" id="inTp" name ="inTp" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd4.innerHTML = '<td><input type="text" id="inTn" name ="inTn" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd5.innerHTML = '<td><input type="text" id="inSs" name ="inSs" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd6.innerHTML = '<td><input type="text" id="inPh" name ="inPh" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
 			newTd7.innerHTML = '<td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td></tr>';
 
 		};
@@ -62,13 +62,13 @@
 		    var newTd5 = newTr.insertCell();
 		    var newTd6 = newTr.insertCell();
 		    var newTd7 = newTr.insertCell();
-		    newTd0.innerHTML = '<tr><td><input type="text" id="outDate" name ="outDate" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd1.innerHTML = '<td><input type="text" id="outCOD" name ="outCOD" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd2.innerHTML = '<td><input type="text" id="outNh3h" name ="outNh3h" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd3.innerHTML = '<td><input type="text" id="outTp" name ="outTp" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd4.innerHTML = '<td><input type="text" id="outTn" name ="outTn" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd5.innerHTML = '<td><input type="text" id="outSs" name ="outSs" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
-		    newTd6.innerHTML = '<td><input type="text" id="outPh" name ="outPh" htmlEscape="false" maxlength="20" class="input-mini "/></td>';
+		    newTd0.innerHTML = '<tr><td><input type="text" id="outDate" name ="outDate" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd1.innerHTML = '<td><input type="text" id="outCOD" name ="outCOD" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd2.innerHTML = '<td><input type="text" id="outNh3h" name ="outNh3h" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd3.innerHTML = '<td><input type="text" id="outTp" name ="outTp" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd4.innerHTML = '<td><input type="text" id="outTn" name ="outTn" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd5.innerHTML = '<td><input type="text" id="outSs" name ="outSs" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
+		    newTd6.innerHTML = '<td><input type="text" id="outPh" name ="outPh" htmlEscape="false" maxlength="50" class="input-mini "/></td>';
 			newTd7.innerHTML = '<td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td></tr>';
 
 		};
@@ -84,7 +84,7 @@
 <body>
 <ul class="nav nav-tabs">
 		<li ><a href="${ctx}/report/month/list/">周报表列表</a></li>
-		<li class="active"><a href="${ctx}/report/month/form">周报表添加</a></li>
+		<shiro:hasPermission name="report:week:edit"><li class="active"><a href="${ctx}/report/month/form">周报表添加</a></li></shiro:hasPermission>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="report" action="${ctx}/report/week/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
@@ -92,7 +92,7 @@
 		<div class="control-group">
 			<label class="lbl">${user.company.name}生产周报</label><br>
 			<label class="input-label" >汇报时间</label>
-			<input id="reportDate" name="reportDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
+			<input id="reportDate" name="reportDate" type="text" readonly="readonly" maxlength="50" class="input-mini Wdate"
 								value="<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/>
 		</div>
@@ -112,22 +112,22 @@
 			    <td>污泥量(吨)</td>
 			  </tr>
 			  <tr>
-			    <td><form:input path="waterTreatment1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="waterTreatment2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pac" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="ipra" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pam1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="pam2" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="disin" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="electricity" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="water" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="sq1" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="waterTreatment1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="waterTreatment2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pac" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="ipra" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pam1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="pam2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="disin" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="electricity" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="water" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="sq1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 			<label class="lbl">（2）进出水水质</label><br>
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
-			    <td>自测月均值</td>
+			    <td>自测周均值</td>
 			    <td>COD</td>
 			    <td>NH3-H</td>
 			    <td>TP</td>
@@ -137,26 +137,26 @@
 			  </tr>
 			  <tr>
 			    <td>进水浓度（mg/L）</td>
-			    <td><form:input path="codSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="nhhSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tpSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tnSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="ssSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="phSelfAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="codSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="nhhSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tpSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tnSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="ssSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="phSelfAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>出水浓度（mg/L）</td>
-			    <td><form:input path="codSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="nhhSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tpSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tnSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="ssSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="phSelfAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="codSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="nhhSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tpSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tnSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="ssSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="phSelfAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
-			    <td>在线监测月均值</td>
+			    <td>在线监测周均值</td>
 			    <td>COD</td>
 			    <td>NH3-H</td>
 			    <td>TP</td>
@@ -166,21 +166,21 @@
 			  </tr>
 			  <tr>
 			    <td>进水浓度（mg/L）</td>
-			    <td><form:input path="codOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="nhhOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tpOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tnOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="ssOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="phOnLineAverageIn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="codOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="nhhOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tpOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tnOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="ssOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="phOnLineAverageIn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			  <tr>
 			    <td>出水浓度（mg/L）</td>
-			    <td><form:input path="codOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="nhhOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tpOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="tnOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="ssOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><form:input path="phOnLineAverageOut" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><form:input path="codOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="nhhOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tpOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="tnOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="ssOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><form:input path="phOnLineAverageOut" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			  </tr>
 			</table>
 			<label class="lbl">（3）在线监测超标情况超标情况</label><br>
@@ -199,13 +199,13 @@
 			    <th><a href="javascript:" onclick="addClomnIn();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			  <tr>
-			    <td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="20" class="input-mini"/></td>
-			    <td><input type="text" id="inCOD" name ="inCOD" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="inNh3h" name ="inNh3h" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="inTp" name ="inTp" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="inTn" name ="inTn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="inSs" name ="inSs" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="inPh" name ="inPh" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><input type="text" id="inDate" name ="inDate" htmlEscape="false" maxlength="50" class="input-mini"/></td>
+			    <td><input type="text" id="inCOD" name ="inCOD" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="inNh3h" name ="inNh3h" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="inTp" name ="inTp" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="inTn" name ="inTn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="inSs" name ="inSs" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="inPh" name ="inPh" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			    <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td>
 			  </tr>
 			</table>
@@ -224,13 +224,13 @@
 			    <th><a href="javascript:" onclick="addClomnOut();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			  <tr>
-			    <td><input type="text" id="outDate" name ="outDate" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outCOD" name ="outCOD" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outNh3h" name ="outNh3h" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outTp" name ="outTp" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outTn" name ="outTn" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outSs" name ="outSs" htmlEscape="false" maxlength="20" class="input-mini "/></td>
-			    <td><input type="text" id="outPh" name ="outPh" htmlEscape="false" maxlength="20" class="input-mini "/></td>
+			    <td><input type="text" id="outDate" name ="outDate" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outCOD" name ="outCOD" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outNh3h" name ="outNh3h" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outTp" name ="outTp" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outTn" name ="outTn" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outSs" name ="outSs" htmlEscape="false" maxlength="50" class="input-mini "/></td>
+			    <td><input type="text" id="outPh" name ="outPh" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 			    <td><a href="javascript:" onclick="deleteClomn(this);" class="btn"><i class="icon-minus"></i></a> </td>
 			  </tr>
 			</table>
@@ -260,7 +260,7 @@
 				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
 		</div>
 		<div class="form-actions">
-			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
+			<shiro:hasPermission name="report:week:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 	</form:form>

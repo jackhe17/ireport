@@ -229,6 +229,9 @@ public class Role extends DataEntity<Role> {
 			setOfficeIdList(Lists.newArrayList(ids));
 		}
 	}
+	public boolean isSuperUser(){
+		return this.enname !=null && this.enname.equalsIgnoreCase("SuperUser");
+	}
 	
 	/**
 	 * 获取权限字符串列表

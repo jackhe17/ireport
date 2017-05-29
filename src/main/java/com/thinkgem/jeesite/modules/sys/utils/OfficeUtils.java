@@ -129,6 +129,17 @@ public class OfficeUtils {
 		}
 		return "";
 	}
+	public static String getOfficeSimpleName(String id){
+		Office office = officeDao.get(id);
+		if (office != null){
+			String simpleName = office.getSimplename();
+			if(simpleName!=null && !simpleName.equals("")){
+				return office.getSimplename();
+			}
+			return office.getName();
+		}
+		return "";
+	}
 	public static String getOfficeName(String id){
 		Office office = officeDao.get(id);
 		if (office != null){
