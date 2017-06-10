@@ -66,13 +66,11 @@ public class MonthReportController extends BaseController {
 	@RequestMapping(value = {"list", ""})
 	public String list(MonthReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
 		String officeID = report.getOfficeId();
-		if (report == null || officeID ==null || "".equals(officeID) ) {
-			report = new MonthReport();
-//			officeID = UserUtils.getUser().getCompany().getId();
-//			report.setOfficeId(officeID);
-		}else {
+//		if (report == null || officeID ==null || "".equals(officeID) ) {
+//			report = new MonthReport();
+//		}else {
 			officeID = report.getOfficeId();
-		}
+//		}
 		Page<MonthReport> page = reportService.find(new Page<MonthReport>(request, response), report);
         model.addAttribute("page", page);
         model.addAttribute("report", report);

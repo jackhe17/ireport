@@ -69,13 +69,11 @@ public class WeekReportController extends BaseController {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		String officeID = report.getOfficeId();
-		if (report == null || officeID ==null || "".equals(officeID) ) {
-			report = new WeekReport();
-//			officeID = UserUtils.getUser().getCompany().getId();
-//			report.setOfficeId(officeID);
-		}else {
+//		if (report == null || officeID ==null || "".equals(officeID) ) {
+//			report = new WeekReport();
+//		}else {
 			officeID = report.getOfficeId();
-		}
+//		}
 		Page<WeekReport> page = reportService.find(new Page<WeekReport>(request, response), report);
         model.addAttribute("page", page);
         model.addAttribute("report", report);

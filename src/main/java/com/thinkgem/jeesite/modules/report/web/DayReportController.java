@@ -78,13 +78,11 @@ public class DayReportController extends BaseController {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		String officeID = report.getOfficeId();
-		if (report == null || officeID ==null || "".equals(officeID) ) {
-			report = new DayReport();
-//			officeID = UserUtils.getUser().getCompany().getId();
-//			report.setOfficeId(officeID);
-		}else {
+//		if (report == null || officeID ==null || "".equals(officeID) ) {
+//			report = new DayReport();
+//		}else {
 			officeID = report.getOfficeId();
-		}
+//		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
         model.addAttribute("page", page);
         model.addAttribute("user", UserUtils.getUser());

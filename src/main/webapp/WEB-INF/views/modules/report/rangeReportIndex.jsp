@@ -105,7 +105,7 @@
 					    <td>${dayReport.tn2}</td>
 					    <td>${dayReport.tp2}</td>
 					    <td>${dayReport.electricity}</td>
-					    <td>${dayReport.waterMeter}</td>
+					    <td>${dayReport.water}</td>
 					    <td>${dayReport.pac}</td>
 					    <td>${dayReport.ipra}</td>
 					    <td>${dayReport.pam1}</td>

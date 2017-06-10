@@ -111,7 +111,7 @@
 					    <td>${dayReport.dwt1}</td>
 					    <td>${dayReport.dwt2}</td>
 					    <td>${dayReport.electricity}</td>
-					    <td>${dayReport.waterMeter}</td>
+					    <td>${dayReport.water}</td>
 					    <td>${dayReport.cod1}</td>
 					    <td>${dayReport.an1}</td>
 					    <td>${dayReport.tn1}</td>

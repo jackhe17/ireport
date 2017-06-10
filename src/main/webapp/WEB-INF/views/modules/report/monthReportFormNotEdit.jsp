@@ -302,7 +302,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="lbl">五、下月工作计划作</label><br>
+			<label class="lbl">五、下月工作计划</label><br>
 			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan" style="width: 90%; height: 70px;"/>
 				<%-- <sys:ckeditor replace="nextMonthPlan" height="100px" /> --%>
 		</div>
