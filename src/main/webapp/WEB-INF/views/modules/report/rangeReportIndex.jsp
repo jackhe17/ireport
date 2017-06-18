@@ -34,7 +34,7 @@
 	<sys:message content="${message}"/>
 	<form:form id="searchForm" modelAttribute="rangeReport" action="${ctx}/range/report/generate" method="post" class="breadcrumb form-search ">
 		<ul class="ul-form">
-			<li><label>厂区：</label><sys:treeselect id="office" name="officeId" value=" ${fns:getOfficeName(rangeReport.officeId)}" labelName="company.name" labelValue="${fns:getOfficeName(rangeReport.officeId)}" 
+			<li><label>厂区：</label><sys:treeselect id="office" name="officeId" value=" ${rangeReport.officeId}" labelName="company.name" labelValue="${fns:getOfficeName(rangeReport.officeId)}" 
 				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></li>
 			<li><label>开始日期：</label>
 							<input id="startDate" name="startDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"

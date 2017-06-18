@@ -87,6 +87,7 @@ public class RangeReportController extends BaseController {
 			DayReport report = new DayReport();
 			if(rangeReport !=null && !UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
 				rangeReport.setOfficeId(UserUtils.getUser().getCompany().getId());
+			}else{
 			}
 			String company = OfficeUtils.getOfficeName(rangeReport.getOfficeId());
             String fileName = company+"_"+rangeReport.getStartDate()+"-"+rangeReport.getEndDate()+".xls";
