@@ -27,13 +27,14 @@ import com.thinkgem.jeesite.modules.report.service.DayReportService;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
 /**
  * 
  *
-alter table `report_day`   
-Add column disin2 varchar(50) default NULL AFTER `disin`; 
-alter table `report_day` 
-Add column disin3 varchar(50) default NULL AFTER `disin`;
+ * alter table `report_day` Add column disin2 varchar(50) default NULL AFTER
+ * `disin`; alter table `report_day` Add column disin3 varchar(50) default NULL
+ * AFTER `disin`;
+ * 
  * @author Jack
  *
  */
@@ -43,97 +44,105 @@ public class DayReportController extends BaseController {
 
 	@Autowired
 	private DayReportService reportService;
-	
+
 	@RequiresPermissions("report:day:view")
-	@RequestMapping(value = {"index"})
+	@RequestMapping(value = { "index" })
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		DayReport report = new DayReport();
-//		report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
-		if(!UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()){
+		// report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
+		if (!UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()) {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
-        model.addAttribute("page", page);
-        model.addAttribute("user", UserUtils.getUser());
-        model.addAttribute("report", report);
+		model.addAttribute("page", page);
+		model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("report", report);
 		return "modules/report/dayReportList";
 	}
-	
+
 	@ModelAttribute("dayReport")
-	public DayReport get(@RequestParam(required=false) String id) {
-		if (StringUtils.isNotBlank(id)){
+	public DayReport get(@RequestParam(required = false) String id) {
+		if (StringUtils.isNotBlank(id)) {
 			DayReport r = reportService.get(id);
 			return r;
-		}else{
+		} else {
 			return new DayReport();
 		}
 	}
 
 	@RequiresPermissions("report:day:view")
-	@RequestMapping(value = {"list", ""})
+	@RequestMapping(value = { "list", "" })
 	public String list(DayReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		
-		
-		if(report!=null && !UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
+
+		if (report != null && !UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()) {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		String officeID = report.getOfficeId();
-//		if (report == null || officeID ==null || "".equals(officeID) ) {
-//			report = new DayReport();
-//		}else {
-			officeID = report.getOfficeId();
-//		}
+		// if (report == null || officeID ==null || "".equals(officeID) ) {
+		// report = new DayReport();
+		// }else {
+		officeID = report.getOfficeId();
+		// }
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
-        model.addAttribute("page", page);
-        model.addAttribute("user", UserUtils.getUser());
-        model.addAttribute("report", report);
-        model.addAttribute("officeId", officeID);
-        Office office = OfficeUtils.getOffice(officeID);
-        if (null == office) {
-//        	office = UserUtils.getUser().getCompany();
-        	office = new Office();
-        	office.setId("");
-        	office.setName("");
+		model.addAttribute("page", page);
+		model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("report", report);
+		model.addAttribute("officeId", officeID);
+		Office office = OfficeUtils.getOffice(officeID);
+		if (null == office) {
+			// office = UserUtils.getUser().getCompany();
+			office = new Office();
+			office.setId("");
+			office.setName("");
 		}
-        
-        model.addAttribute("office", office);
+
+		model.addAttribute("office", office);
 		return "modules/report/dayReportList";
 	}
+
 	@RequiresPermissions("report:day:view")
 	@RequestMapping(value = "form")
 	public String form(DayReport report, Model model) {
+		String officeID = report.getOfficeId();
+		Office office = OfficeUtils.getOffice(officeID);
+		if (office != null) {
+			report.setOfficeName(office.getName());
+		}
 		model.addAttribute("report", report);
 		model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportForm";
 	}
+
 	@RequiresPermissions("report:day:view")
 	@RequestMapping(value = "noeditform")
 	public String noeditform(DayReport report, Model model) {
 		String officeID = report.getOfficeId();
-		 Office office = OfficeUtils.getOffice(officeID);
-		 report.setOfficeName(office.getName());
-		 model.addAttribute("report", report);
+		Office office = OfficeUtils.getOffice(officeID);
+		report.setOfficeName(office.getName());
+		model.addAttribute("report", report);
 		model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportNoEditForm";
 	}
+
 	@RequiresPermissions("report:day:edit")
 	@RequestMapping(value = "save")
 	public String save(DayReport report, Model model, RedirectAttributes redirectAttributes) {
-		if(Global.isDemoMode()){
+		if (Global.isDemoMode()) {
 			addMessage(redirectAttributes, "演示模式，不允许操作！");
 			return "redirect:" + adminPath + "/report/day/index";
 		}
-		if (!beanValidator(model, report)){
-//			return form(report, model);
+		if (!beanValidator(model, report)) {
+			// return form(report, model);
 		}
 		reportService.save(report);
 		addMessage(redirectAttributes, "保存生产运行日报表'" + report.getReportDate() + "'成功");
 		return "redirect:" + adminPath + "/report/day/index";
 	}
+
 	@RequiresPermissions("report:day:edit")
 	@RequestMapping(value = "delete")
 	public String delete(DayReport report, RedirectAttributes redirectAttributes) {
-		if(Global.isDemoMode()){
+		if (Global.isDemoMode()) {
 			addMessage(redirectAttributes, "演示模式，不允许操作！");
 			return "redirect:" + adminPath + "/report/day/index";
 		}
@@ -141,70 +150,77 @@ public class DayReportController extends BaseController {
 		addMessage(redirectAttributes, "删除生产运行日报表成功");
 		return "redirect:" + adminPath + "/report/day/index";
 	}
+
 	@RequiresPermissions("report:day:collect")
 	@RequestMapping(value = "collectindex")
 	public String collectindex(HttpServletRequest request, HttpServletResponse response, Model model) {
 		DayReport report = new DayReport();
 		report.setReportDate(DateUtils.getDistanceDay(new Date(), -1));
-		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
+		if (!UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()) {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
-        model.addAttribute("page", page);
-        model.addAttribute("report", report);
-        model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("page", page);
+		model.addAttribute("report", report);
+		model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportCollect";
 	}
-	
+
 	@RequiresPermissions("report:day:collect")
 	@RequestMapping(value = "collect")
 	public String collect(DayReport report, HttpServletRequest request, HttpServletResponse response, Model model) {
-		if(!UserUtils.getUser().isAdmin()&& !UserUtils.isSuperUser()){
+		if (!UserUtils.getUser().isAdmin() && !UserUtils.isSuperUser()) {
 			report.setOfficeId(UserUtils.getUser().getCompany().getId());
 		}
 		Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
 		List<DayReport> list = page.getList();
-		if (null !=list && list.size()>0) {
+		if (null != list && list.size() > 0) {
 			int id = 1;
 			for (DayReport dayReport : list) {
 				dayReport.setId(String.valueOf(id));
 				id++;
 			}
 		}
-        model.addAttribute("page", page);
-        model.addAttribute("report", report);
-        model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("page", page);
+		model.addAttribute("report", report);
+		model.addAttribute("user", UserUtils.getUser());
 		return "modules/report/dayReportCollect";
 	}
 
 	@RequiresPermissions("report:day:view")
-    @RequestMapping(value = "dayReportCollectExport", method=RequestMethod.POST)
-    public String collectExportFile(DayReport report, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "dayReportCollectExport", method = RequestMethod.POST)
+	public String collectExportFile(DayReport report, HttpServletRequest request, HttpServletResponse response,
+			RedirectAttributes redirectAttributes) {
 		try {
-            String fileName = "汇总日报表"+report.getReportDate()+".xls";
-            Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
-//    		new ExportExcel("日报表", DayReport.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		new ExportExcelJxls(1).setDataList(page.getList()).write(response, fileName);
-    		return null;
+			String fileName = "汇总日报表" + report.getReportDate() + ".xls";
+			Page<DayReport> page = reportService.find(new Page<DayReport>(request, response), report);
+			// new ExportExcel("日报表",
+			// DayReport.class).setDataList(page.getList()).write(response,
+			// fileName).dispose();
+			new ExportExcelJxls(1).setDataList(page.getList()).write(response, fileName);
+			return null;
 		} catch (Exception e) {
-			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
+			addMessage(redirectAttributes, "导出日报表失败！失败信息：" + e.getMessage());
 		}
 		return "redirect:" + adminPath + "/report/dayReportCollect";
-    }
-	
+	}
+
 	@RequiresPermissions("report:day:view")
-    @RequestMapping(value = "export")
-    public String export(String id, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "export")
+	public String export(String id, HttpServletRequest request, HttpServletResponse response,
+			RedirectAttributes redirectAttributes) {
 		DayReport dayReport = reportService.get(id);
 		try {
 			String company = OfficeUtils.getOfficeName(dayReport.getOfficeId());
-            String fileName = company+"_"+"日报表"+dayReport.getReportDate()+".xls";
-//    		new ExportExcel("日报表", DayReport.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		new ExportExcelJxls(3).setDayReport(dayReport).setCompany(company).write(response, fileName);
-    		return null;
+			String fileName = company + "_" + "日报表" + dayReport.getReportDate() + ".xls";
+			// new ExportExcel("日报表",
+			// DayReport.class).setDataList(page.getList()).write(response,
+			// fileName).dispose();
+			new ExportExcelJxls(3).setDayReport(dayReport).setCompany(company).write(response, fileName);
+			return null;
 		} catch (Exception e) {
-			addMessage(redirectAttributes, "导出日报表失败！失败信息："+e.getMessage());
+			addMessage(redirectAttributes, "导出日报表失败！失败信息：" + e.getMessage());
 		}
 		return "redirect:" + adminPath + "/report/dayReportList";
-    }
+	}
 }

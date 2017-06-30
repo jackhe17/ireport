@@ -21,14 +21,14 @@
 			and a.officeId = #{officeId} 
 		</if>
 		
-		<!-- <choose>
+		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY a.reportDate
+				ORDER BY a.reportDate desc
 			</when>
 			<otherwise>
-				ORDER BY a.reportDate
+				ORDER BY a.reportDate desc
 			</otherwise>
-		</choose> -->
+		</choose>
 	</select>
 	<update id="delete">
 		UPDATE report_week SET 

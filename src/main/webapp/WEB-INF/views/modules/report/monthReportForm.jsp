@@ -90,7 +90,7 @@
 		<sys:message content="${message}"/>
 		<form:hidden path="id"/>
 		<div class="control-group">
-			<label class="lbl">${user.company.name}生产月报表</label><br>
+			<label class="lbl">${report.officeName}生产月报表</label><br>
 			<label class="input-label" >汇报时间</label>
 			<input id="reportDate" name="reportDate" type="text" readonly="readonly" maxlength="50" class="input-mini Wdate"
 								value="<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"

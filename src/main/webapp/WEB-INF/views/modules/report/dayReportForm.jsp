@@ -34,7 +34,7 @@
 		<sys:message content="${message}"/>
 		<form:hidden path="id"/>
 		<div class="control-group">
-			<label class="lbl">${user.company.name}生产运行日报表</label><br>
+			<label class="lbl">${report.officeName}生产运行日报表</label><br>
 		</div>
 		<div class="control-group">
 		<!-- required -->

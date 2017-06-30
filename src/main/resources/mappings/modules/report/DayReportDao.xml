@@ -55,10 +55,10 @@
 		</if>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY a.reportDate
+				ORDER BY a.reportDate desc
 			</when>
 			<otherwise>
-				ORDER BY a.reportDate
+				ORDER BY a.reportDate desc
 			</otherwise>
 		</choose>
 	</select>

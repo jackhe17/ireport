@@ -36,7 +36,7 @@
 		<ul class="ul-form">
 			<li><label>厂区：</label><sys:treeselect id="office" name="officeId" value=" ${rangeReport.officeId}" labelName="company.name" labelValue="${fns:getOfficeName(rangeReport.officeId)}" 
 				title="厂区" url="/officetreedata?type=1" cssClass="input-block-level required" allowClear="true"/></li>
-			<li><label>开始日期：</label>
+			<li><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始日期：</label>
 							<input id="startDate" name="startDate" type="text" readonly="readonly" maxlength="20" class="input-mini Wdate"
 								value="<fmt:parseDate value="${rangeReport.startDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true});"/></li>

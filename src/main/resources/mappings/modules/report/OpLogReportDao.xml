@@ -21,6 +21,14 @@
 		<if test="officeId != null and officeId != ''">
 			and a.officeId = #{officeId} 
 		</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY a.logDate desc
+			</when>
+			<otherwise>
+				ORDER BY a.logDate desc
+			</otherwise>
+		</choose>
 	</select>
 	<update id="delete">
 		UPDATE report_op_log SET 
