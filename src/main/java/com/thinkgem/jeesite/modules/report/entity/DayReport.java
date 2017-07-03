@@ -180,6 +180,9 @@ public class DayReport extends DataEntity<DayReport> {
 	
 	private String handicraft;//工艺运行情况
 	private String problem;//存在问题及需要上级沟通解决问题
+	
+	private String firstOpinion;//报表初审意见
+	private String replyOpinion;//厂区回复意见
 
 	
 	public String getOfficeName() {
@@ -1159,6 +1162,18 @@ public class DayReport extends DataEntity<DayReport> {
 	}
 	public void setDisin3(String disin3) {
 		this.disin3 = disin3;
+	}
+	public String getFirstOpinion() {
+		return firstOpinion;
+	}
+	public void setFirstOpinion(String firstOpinion) {
+		this.firstOpinion = firstOpinion;
+	}
+	public String getReplyOpinion() {
+		return replyOpinion;
+	}
+	public void setReplyOpinion(String replyOpinion) {
+		this.replyOpinion = replyOpinion;
 	}
 
 

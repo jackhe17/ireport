@@ -4,12 +4,6 @@
 	<sql id="dayReportColumns">
 		a.*
 	</sql>
-	<!-- <select id="getWeakList" resultType="DayReport">
-		SELECT
-			<include refid="dayReportColumns"/>
-		FROM report_day a
-		WHERE TO_DAYS(NOW())-TO_DAYS(STR_TO_DATE(a.reportDate,'%Y-%m-%d')) <=7
-	</select> -->
 	
 	<select id="getCollectReport" resultType="DayReport">
 		SELECT
@@ -211,6 +205,8 @@
 			instrument = #{instrument},
 			handicraft = #{handicraft},
 			problem = #{problem}, 
+			firstOpinion = #{firstOpinion},
+			replyOpinion = #{replyOpinion}, 
 			update_date = #{updateDate}
 		WHERE id = #{id}
 	</update>
@@ -363,6 +359,8 @@
 			instrument,
 			handicraft,
 			problem,
+			firstOpinion,
+			replyOpinion,
 			CREATE_BY,
 			CREATE_DATE,
 			UPDATE_BY,
@@ -517,6 +515,8 @@
 			#{instrument},
 			#{handicraft},
 			#{problem},
+			#{firstOpinion},
+			#{replyOpinion},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},

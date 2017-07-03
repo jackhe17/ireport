@@ -83,8 +83,8 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
-		<li ><a href="${ctx}/report/month/list/">周报表列表</a></li>
-		<shiro:hasPermission name="report:week:edit"><li class="active"><a href="${ctx}/report/month/form">周报表添加</a></li></shiro:hasPermission>
+		<li ><a href="${ctx}/report/week/list/">周报表列表</a></li>
+		<shiro:hasPermission name="report:week:edit"><li class="active"><a href="${ctx}/report/week/form">周报表添加</a></li></shiro:hasPermission>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="report" action="${ctx}/report/week/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
@@ -255,8 +255,18 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="lbl">四、下周工作计划</label><br>
+			<label class="lbl">五、下周工作计划</label><br>
 			<form:textarea id="nextWeekPlan" htmlEscape="true" path="nextWeekPlan" style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
+		</div>
+		<div class="control-group">
+			<label class="lbl">六、报表初审意见</label><br>
+			<form:textarea id="firstOpinion" htmlEscape="true" path="firstOpinion" style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
+		</div>
+		<div class="control-group">
+			<label class="lbl">七、厂区回复意见</label><br>
+			<form:textarea id="replyOpinion" htmlEscape="true" path="replyOpinion" style="width: 90%; height: 100px;"/>
 				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
 		</div>
 		<div class="form-actions">

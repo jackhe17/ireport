@@ -31,10 +31,11 @@ import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 /**
  * 
  *
- * alter table `report_day` Add column disin2 varchar(50) default NULL AFTER
- * `disin`; alter table `report_day` Add column disin3 varchar(50) default NULL
- * AFTER `disin`;
+ * alter table `report_day` Add column disin2 varchar(50) default NULL AFTER `disin`; 
+ * alter table `report_day` Add column disin3 varchar(50) default NULL AFTER `disin`;
  * 
+ * alter table `report_day` Add column replyOpinion varchar(2000) default NULL AFTER `problem`; 
+ * alter table `report_day` Add column firstOpinion varchar(2000) default NULL AFTER `problem`; 
  * @author Jack
  *
  */

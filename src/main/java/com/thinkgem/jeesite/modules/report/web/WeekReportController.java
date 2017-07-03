@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,16 +19,21 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.modules.report.entity.WeekReport;
-import com.thinkgem.jeesite.modules.report.entity.DayReport;
-import com.thinkgem.jeesite.modules.report.entity.MonthReport;
 import com.thinkgem.jeesite.modules.report.entity.Overproof;
-import com.thinkgem.jeesite.modules.report.service.WeekReportService;
+import com.thinkgem.jeesite.modules.report.entity.WeekReport;
 import com.thinkgem.jeesite.modules.report.service.OverproofService;
+import com.thinkgem.jeesite.modules.report.service.WeekReportService;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.utils.OfficeUtils;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
+/**
+ * alter table `report_week` Add column replyOpinion varchar(2000) default NULL AFTER `nextWeekPlan`; 
+alter table `report_week` Add column firstOpinion varchar(2000) default NULL AFTER `nextWeekPlan`; 
+
+ * @author Jack
+ *
+ */
 @Controller
 @RequestMapping(value = "${adminPath}/report/week")
 public class WeekReportController extends BaseController {

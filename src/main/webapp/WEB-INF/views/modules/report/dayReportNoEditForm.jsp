@@ -28,7 +28,7 @@
 <body>
 <ul class="nav nav-tabs">
 		<li ><a href="${ctx}/report/day/list/">日报表列表</a></li>
-		<shiro:hasPermission name="report:day:edit"><li><a href="${ctx}/report/day/form">日报表添加</a></li></shiro:hasPermission>
+		<shiro:hasPermission name="report:day:edit"><li class="active"><a href="${ctx}/report/day/form">日报表添加</a></li></shiro:hasPermission>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="dayReport" action="${ctx}/report/day/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
@@ -355,6 +355,18 @@
 			  <tr>
 			    <td>存在问题及需要上级沟通解决问题:</td>
 			    <td><form:textarea path="problem" htmlEscape="false" rows="1"  style="width: 90%; height: 50px;"/></td>
+			  </tr>
+			</table>
+		</div>
+		<div class="control-group">
+			<table class="table table-striped table-bordered table-condensed">
+			  <tr>
+			    <td>报表初审意见:</td>
+			    <td><form:textarea path="firstOpinion" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
+			  </tr>
+			  <tr>
+			    <td>厂区回复意见:</td>
+			    <td><form:textarea path="replyOpinion" htmlEscape="false" rows="1"  style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			</table>
 		</div>

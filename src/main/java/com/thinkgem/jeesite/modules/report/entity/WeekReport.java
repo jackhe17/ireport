@@ -58,6 +58,21 @@ public class WeekReport extends DataEntity<WeekReport> {
 	String problemDesc;
 	String actionDesc;
 	String nextWeekPlan;
+	String firstOpinion;//报表初审意见
+	String replyOpinion;//厂区回复意见
+
+	public String getFirstOpinion() {
+		return firstOpinion;
+	}
+	public void setFirstOpinion(String firstOpinion) {
+		this.firstOpinion = firstOpinion;
+	}
+	public String getReplyOpinion() {
+		return replyOpinion;
+	}
+	public void setReplyOpinion(String replyOpinion) {
+		this.replyOpinion = replyOpinion;
+	}
 	public String getOfficeName() {
 		return officeName;
 	}

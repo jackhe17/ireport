@@ -27,9 +27,10 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
-		<li ><a href="${ctx}/report/day/list/">日报表列表</a></li>
-		<shiro:hasPermission name="report:day:edit"><li><a href="${ctx}/report/day/form">日报表添加</a></li></shiro:hasPermission>
-	</ul><br/>
+		<li ><a href="${ctx}/report/day/list">日报表列表</a></li>
+		<shiro:hasPermission name="report:day:edit"><li class="active"><a href="${ctx}/report/day/form" >日报表添加</a></li></shiro:hasPermission>
+	</ul>
+	<br/>
 	<form:form id="inputForm" modelAttribute="dayReport" action="${ctx}/report/day/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
 		<form:hidden path="id"/>
@@ -351,16 +352,41 @@
 			    <td><form:textarea path="instrument" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			</table>
-		</div>
+		</div> 
+		
+		<%-- <div class="control-group">
+			<label class="lbl">设备运行工况</label><br>
+			<label class="lbl">机电设备运行维护</label><br>
+			<div class="controls">
+				<form:textarea id="equipment" htmlEscape="true" path="equipment"  style="width: 90%; height: 100px;"/>
+			</div>
+			<label class="lbl">中控仪表</label><br>
+			<div class="controls">
+				<form:textarea id="instrument" htmlEscape="true" path="instrument"  style="width: 90%; height: 100px;"/>
+			</div>
+		</div> --%>
+		
 		<div class="control-group">
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
-			    <td>工艺运行情况</td>
+			    <td>工艺运行情况:</td>
 			    <td><form:textarea path="handicraft" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			  <tr>
 			    <td>存在问题及需要上级沟通解决问题:</td>
 			    <td><form:textarea path="problem" htmlEscape="false" rows="1"  style="width: 90%; height: 50px;"/></td>
+			  </tr>
+			</table>
+		</div>
+		<div class="control-group">
+			<table class="table table-striped table-bordered table-condensed">
+			  <tr>
+			    <td>报表初审意见:</td>
+			    <td><form:textarea path="firstOpinion" htmlEscape="false" rows="1" style="width: 90%; height: 50px;"/></td>
+			  </tr>
+			  <tr>
+			    <td>厂区回复意见:</td>
+			    <td><form:textarea path="replyOpinion" htmlEscape="false" rows="1"  style="width: 90%; height: 50px;"/></td>
 			  </tr>
 			</table>
 		</div>

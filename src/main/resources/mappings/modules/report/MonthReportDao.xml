@@ -88,6 +88,8 @@
 			problemDesc = #{problemDesc},
 			actionDesc = #{actionDesc},
 			nextMonthPlan = #{nextMonthPlan},
+			firstOpinion = #{firstOpinion},
+			replyOpinion = #{replyOpinion}, 
 			update_date = #{updateDate}
 		WHERE id = #{id}
 	</update>
@@ -138,6 +140,8 @@
 			problemDesc,
 			actionDesc,
 			nextMonthPlan,
+			firstOpinion,
+			replyOpinion,
 			CREATE_BY,
 			CREATE_DATE,
 			UPDATE_BY,
@@ -190,6 +194,8 @@
 			#{problemDesc},
 			#{actionDesc},
 			#{nextMonthPlan},
+			#{firstOpinion},
+			#{replyOpinion},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},

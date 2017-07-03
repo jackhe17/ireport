@@ -3,11 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.report.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.report.dao.DayReportDao;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.RangeReport;

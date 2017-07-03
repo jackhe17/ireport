@@ -285,6 +285,16 @@
 			<form:textarea id="nextMonthPlan" htmlEscape="true" path="nextMonthPlan"  style="width: 90%; height: 70px;"/>
 				<%-- <sys:ckeditor replace="nextMonthPlan" height="100px" /> --%>
 		</div>
+		<div class="control-group">
+			<label class="lbl">六、报表初审意见</label><br>
+			<form:textarea id="firstOpinion" htmlEscape="true" path="firstOpinion" style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
+		</div>
+		<div class="control-group">
+			<label class="lbl">七、厂区回复意见</label><br>
+			<form:textarea id="replyOpinion" htmlEscape="true" path="replyOpinion" style="width: 90%; height: 100px;"/>
+				<%-- <sys:ckeditor replace="nextWeekPlan" height="100px" /> --%>
+		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="report:month:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
