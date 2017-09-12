@@ -1,11 +1,14 @@
 package com.thinkgem.jeesite.modules.report.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.DateUtils;
+import com.thinkgem.jeesite.common.utils.FileUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
@@ -214,14 +218,58 @@ public class DayReportController extends BaseController {
 		try {
 			String company = OfficeUtils.getOfficeName(dayReport.getOfficeId());
 			String fileName = company + "_" + "日报表" + dayReport.getReportDate() + ".xls";
-			// new ExportExcel("日报表",
-			// DayReport.class).setDataList(page.getList()).write(response,
-			// fileName).dispose();
 			new ExportExcelJxls(3).setDayReport(dayReport).setCompany(company).write(response, fileName);
 			return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导出日报表失败！失败信息：" + e.getMessage());
 		}
-		return "redirect:" + adminPath + "/report/dayReportList";
+		return "redirect:" + adminPath + "/report/day/list";
+	}
+	
+	@RequiresPermissions("report:day:view")
+	@RequestMapping(value = "batchExport")
+	public String batchExport(String ids, final HttpServletRequest request, final HttpServletResponse response,
+			final RedirectAttributes redirectAttributes) {
+		if (ids!=null && ids.length()>0) {
+			String[] idArray = ids.split(",");
+			String partentPath = request.getSession().getServletContext().getRealPath("fileDir");
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append("日报_").append(idArray.length).append("_").append(RandomStringUtils.randomAlphanumeric(5))
+						.append("_").append(RandomStringUtils.randomAlphanumeric(5)).append("_").append(System.currentTimeMillis());
+			String zipFileName = stringBuilder.toString();
+			String childPath = "\\"+zipFileName;
+			String tempPath = partentPath+childPath;
+			File tempDir = new File(tempPath);
+			if (tempDir.exists()) {
+				tempDir.delete();
+			}
+			tempDir.mkdirs();
+			if (!tempDir.exists() || !tempDir.canWrite()) {
+				logger.error("系统错误！");
+				 return null;
+			}
+			for (final String id : idArray) {
+				DayReport dayReport = reportService.get(id);
+				try {
+					String company = OfficeUtils.getOfficeName(dayReport.getOfficeId());
+					String fileName = company + "_" + "日报表" + dayReport.getReportDate() + ".xls";
+					new ExportExcelJxls(3).setDayReport(dayReport).setCompany(company).writeFile(tempDir.getPath()+"\\"+fileName);
+				} catch (Exception e) {
+					e.printStackTrace();
+					addMessage(redirectAttributes, "导出日报表失败！失败信息：" + e.getMessage());
+				}
+			}
+			String zipFileFullPath =tempPath+"\\"+zipFileName+".zip";
+			FileUtils.zipFiles(tempPath, "*", zipFileFullPath);
+			
+	        File zipFile = new File(zipFileFullPath);
+	        FileUtils.downFile(zipFile, request, response);
+	        try {
+				FileUtils.deleteDirectory(tempDir);
+			} catch (IOException e) {
+			}
+	        return null;
+		}
+		return "redirect:" + adminPath + "/report/day/list";
 	}
 }

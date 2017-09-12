@@ -20,6 +20,51 @@
 			$.jBox($("#importBox").html(), {title:"导入数据", buttons:{"关闭":true}, 
 				bottomText:"导入文件不能超过5M，仅允许导入“xls”或“xlsx”格式文件！"});
 		});
+		//全选  
+	    $("#selectAll").click(function () {
+	         $("#list :checkbox,#all").attr("checked", true);  
+	    }); 
+	  //全不选
+	    $("#unSelect").click(function () {  
+	         $("#list :checkbox,#all").attr("checked", false);  
+	    });  
+	    //反选 
+	    $("#reverse").click(function () { 
+	         $("#list :checkbox").each(function () {  
+	              $(this).attr("checked", !$(this).attr("checked"));  
+	         });
+			 allchk();
+	    });
+	  //获取选中选项的值
+		$("#batchExport").click(function(){
+			var valArr = new Array;
+	        $("#list :checkbox[checked]").each(function(i){
+				valArr[i] = $(this).val();
+	        });
+			
+			if(valArr.length == 0){
+				alert("至少选择一条记录！");
+			}else{ 
+				var vals = valArr.join(',');
+				$("#searchForm").attr("action","${ctx}/report/month/batchExport?ids="+vals);
+				$("#searchForm").submit();
+			 } 
+	      	
+	    });
+		function allchk(){
+			var chknum = $("#list :checkbox").size();//选项总个数
+			var chk = 0;
+			$("#list :checkbox").each(function () {  
+		        if($(this).attr("checked")==true){
+					chk++;
+				}
+		    });
+			if(chknum==chk){//全选
+				$("#all").attr("checked",true);
+			}else{//不全选
+				$("#all").attr("checked",false);
+			}
+		}
 	});
 	function page(n,s){
 		if(n) $("#pageNo").val(n);
@@ -57,8 +102,12 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 	<c:choose> 
 		<c:when test="${page.list.size()>0}">
-		<thead><tr><th>序号</th><th >厂区</th><th >汇报日期</th><shiro:hasPermission name="report:day:edit"><th>操作</th></shiro:hasPermission></tr></thead>
-		<tbody>
+		<thead><tr><th>序号</th><th >厂区</th><th >汇报日期</th><shiro:hasPermission name="report:day:edit"><th>操作(
+					<a id="selectAll">全选</a>
+					<a id="unSelect">全不选</a>
+    				<a id="reverse">反选</a>
+					<a id="batchExport">批量下载</a>)</th></shiro:hasPermission></tr></thead>
+		<tbody id ="list">
 		<c:forEach items="${page.list}" var="report">
 			<tr>
 				<td><a href="${ctx}/report/month/noteditform?id=${report.id}">${report.id}</a></td>
@@ -70,6 +119,7 @@
     				<shiro:hasPermission name="report:month:edit">
     				<a href="${ctx}/report/month/form?id=${report.id}">修改</a>
 					<a href="${ctx}/report/month/delete?id=${report.id}" onclick="return confirmx('确认要删除此报表吗？', this.href)">删除</a>
+					<input type="checkbox" value="${report.id}">
 					</shiro:hasPermission>
 				</td>
 			</tr>

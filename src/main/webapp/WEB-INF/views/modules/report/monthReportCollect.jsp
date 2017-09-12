@@ -57,7 +57,7 @@
 					<tr>
 						<th scope="col">类型</th>
 					    <th scope="col">厂区</th>
-					    <th colspan="2" scope="col">处理水量（m3）</th>
+					    <th colspan="2" scope="col">处理水量（m<sup>3</sup>）</th>
 					    <th scope="col">月度总计成本（元）</th>
 					    <th scope="col">应收水费（元）</th>
 					    <th scope="col">实收水费（元）</th>
@@ -85,11 +85,11 @@
 					<tr>
 						<th>自测月均值</th>
 						<th>COD</th>
-						<th>NH3-H</th>
+						<th>NH<sub>3</sub>-N</th>
 						<th>TP</th>
 						<th>TN</th>
 						<th>SS</th>
-						<th>PH</th>
+						<th>pH</th>
 				    </tr>
 				</thead>
 				<tbody>
@@ -115,11 +115,11 @@
 					<tr>
 						<th>在线检测月均值</th>
 						<th>COD</th>
-						<th>NH3-H</th>
+						<th>NH<sub>3</sub>-N</th>
 						<th>TP</th>
 						<th>TN</th>
 						<th>SS</th>
-						<th>PH</th>
+						<th>pH</th>
 				    </tr>
 				</thead>
 				<tbody>
@@ -152,7 +152,7 @@
 					    <td scope="col">铁盐/除磷剂(吨)</td>
 					    <td scope="col">PAM-(kg)</td>
 					    <td scope="col">PAM+(kg)</td>
-					    <td scope="col">消毒药剂(m3/kg)</td>
+					    <td scope="col">消毒药剂(m<sup>3</sup>/kg)</td>
 					    <td scope="col">用电量(kw.h)</td>
 					    <td scope="col">用水量(吨)</td>
 					    <td scope="col">污泥量(吨)</td>

@@ -182,6 +182,43 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		calendar.add(Calendar.DAY_OF_MONTH, dist);
 		return formatDate(calendar.getTime());
 	} 
+	public static int getWeekOfYear(String nowdateStr){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(parseDate(nowdateStr));
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
+	public static int getMonthOfYear(String nowdateStr){
+		if (nowdateStr==null || nowdateStr.equals("")) {
+			return getLastMonthOfYear();
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(parseDate(nowdateStr));
+		return calendar.get(Calendar.MONTH)+1;
+	}
+	public static int getLastMonthOfYear(){
+		String nowdateStr = getDate();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(parseDate(nowdateStr));
+		int month=  calendar.get(Calendar.MONTH)+1;
+		if (month == 1) {
+			month =12;
+		}else {
+			month = month -1;
+		}
+		return month;
+	}
+	public static int getLastWeekOfYear(String nowdateStr){
+		if (nowdateStr==null || nowdateStr.equals("")) {
+			nowdateStr = getDate();
+		}
+		int last = getWeekOfYear(nowdateStr);
+		if (last==1) {
+			last = 52;
+		}else {
+			last = last -1;
+		}
+		return last;
+	}
 	/**
 	 * @param args
 	 * @throws ParseException
@@ -191,12 +228,13 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 //		System.out.println(getDate("yyyy年MM月dd日 E"));
 //		long time = new Date().getTime()-parseDate("2012-11-19").getTime();
 //		System.out.println(time/(24*60*60*1000));
-		String nowdateStr = "2017-01-02";
+//		String nowdateStr = "2017-01-02";
 //		System.out.println(formatDate(parseDate(nowdateStr)));
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(parseDate(nowdateStr));
-		calendar.add(Calendar.DAY_OF_MONTH, -30);
-		System.out.println(formatDate(calendar.getTime()));
-		System.out.println(getDistanceDay(new Date(), -1));
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTime(parseDate(nowdateStr));
+//		calendar.add(Calendar.DAY_OF_MONTH, -30);
+//		System.out.println(formatDate(calendar.getTime()));
+//		System.out.println(getDistanceDay(new Date(), -1));
+		System.out.println(getMonthOfYear("2017-07"));
 	}
 }

@@ -79,7 +79,7 @@
 				  <tr>
 				    <th rowspan="2">布水池号</th>
 				    <th colspan="2">布水时间</th>
-				    <th rowspan="2">布水量（m³）</th>
+				    <th rowspan="2">布水量（m<sup>3</sup>）</th>
 				    <th rowspan="2">落干时刻</th>
 				    <th rowspan="2">落干时间（min）</th>
 				    <th rowspan="2">备注</th>

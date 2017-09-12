@@ -59,7 +59,7 @@
 		    <td colspan="3">晚班：<form:input path="lastWorker" htmlEscape="false" maxlength="50" class="input-mini2 "/></td>
 		  </tr>
 		  <tr>
-		    <td rowspan="2">日处理水量（m3）</td>
+		    <td rowspan="2">日处理水量（m<sup>3</sup>）</td>
 		     <td><form:input path="dwt1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		    <td rowspan="2">污泥量（吨）</td>
 		     <td rowspan="2"><form:input path="sq1" htmlEscape="false" maxlength="50" class="input-mini "/></td>
@@ -87,11 +87,11 @@
 		     <td><form:input path="pam2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>
-		    <td >消毒药剂1（M3/kg）</p>
+		    <td >消毒药剂1（M<sup>3</sup>/kg）</p>
 		    <td ><form:input path="disin" htmlEscape="false" maxlength="50" class="input-mini "/></td>
-		    <td >消毒药剂2（M3/kg）</p>
+		    <td >消毒药剂2（M<sup>3</sup>/kg）</p>
 		    <td ><form:input path="disin2" htmlEscape="false" maxlength="50" class="input-mini "/></td>
-		    <td >其他药剂（M3/kg）</p>
+		    <td >其他药剂（M<sup>3</sup>/kg）</p>
 		    <td ><form:input path="disin3" htmlEscape="false" maxlength="50" class="input-mini "/></td>
 		  </tr>
 		  <tr>

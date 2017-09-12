@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.Encodes;
 import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.MonthReport;
@@ -218,6 +219,7 @@ public class ExportExcelJxls {
 		beanParams.put("company", this.company);
 		beanParams.put("ovInList", this.ovInList);
 		beanParams.put("ovOutList", this.ovOutList);
+		beanParams.put("weekOfYear", DateUtils.getLastWeekOfYear(this.weekReport.getReportDate()));
 		String date = this.weekReport.getReportDate();
 		if (null != date && date.split("-").length==3) {
 			String[] dateArray = date.split("-");
@@ -249,8 +251,9 @@ public class ExportExcelJxls {
 			beanParams.put("day", dateArray[2]);
 		}
 		String reportDate = this.monthReport.getReportMonth();
+		beanParams.put("monthOfYear", DateUtils.getMonthOfYear(reportDate));
 		if (null != reportDate && reportDate.split("-").length==2) {
-			String[] dateArray = date.split("-");
+			String[] dateArray = reportDate.split("-");
 			beanParams.put("reportYear", dateArray[0]);
 			beanParams.put("reportMonth", dateArray[1]);
 		}
@@ -315,15 +318,20 @@ public class ExportExcelJxls {
 		return this;
 	}
 	
-	public ExportExcelJxls writeFile(String name,Workbook wb) throws FileNotFoundException, IOException{
+	public ExportExcelJxls writeFile(String name) throws FileNotFoundException, IOException{
 		FileOutputStream os = new FileOutputStream(name);
 		this.write(os);
+		os.close();
 		return this;
 	}
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 	ExportExcelJxls excelJxls = new ExportExcelJxls();
 	try {
-		excelJxls.writeFile("target/aaa.xls", excelJxls.getMonthReportWorkBook());
+		DayReport dayReport = new DayReport();
+		dayReport.setOfficeName("aa");
+		dayReport.setAn1("a");
+		excelJxls.setCompany("aa");
+		excelJxls.writeFile("target/aaa.xls");
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -331,5 +339,5 @@ public class ExportExcelJxls {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-}*/
+}
 }

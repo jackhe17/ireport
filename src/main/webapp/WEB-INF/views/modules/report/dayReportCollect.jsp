@@ -59,7 +59,7 @@
 					    <td rowspan="3">厂区</td>
 					    <td rowspan="3">天气</td>
 					    <td colspan="2" rowspan="3">日处理水量<br />
-					    (m3)</td>
+					    (m<sup>3</sup>)</td>
 					    <td rowspan="3">用电量(kw.h)</td>
 					    <td rowspan="3">用水量（吨）</td>
 					    <td colspan="10">实验室水质(mg/L)</td>
@@ -81,7 +81,7 @@
 					    <td rowspan="2">铁盐/除磷剂（吨）</td>
 					    <td rowspan="2">PAM-(kg)</td>
 					    <td rowspan="2">PAM+ (kg)</td>
-					    <td rowspan="2">消毒药剂(M3/kg)</td>
+					    <td rowspan="2">消毒药剂(M<sup>3</sup>/kg)</td>
 					    <td rowspan="2">养护情况</td>
 					    <td colspan="4">落干时间(MIN)</td>
 				  	</tr>

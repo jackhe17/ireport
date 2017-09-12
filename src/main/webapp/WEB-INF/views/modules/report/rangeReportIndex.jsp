@@ -58,7 +58,7 @@
 					</tr>
 				 	<tr>
 					    <td rowspan="3">日期</td>
-					    <td colspan="2" rowspan="3">日处理水量(m3)</td>
+					    <td colspan="2" rowspan="3">日处理水量(m<sup>3</sup>)</td>
 					    <td colspan="10">实验室水质(mg/L)</td>
 					    <td rowspan="3">用电量(kw.h)</td>
 					    <td rowspan="3">用水量（吨）</td>
@@ -73,7 +73,7 @@
 					    <td rowspan="2">铁盐/除磷剂（吨）</td>
 					    <td rowspan="2">PAM-（kg）</td>
 					    <td rowspan="2">PAM+（kg）</td>
-					    <td rowspan="2">消毒药剂（M3/kg）</td>
+					    <td rowspan="2">消毒药剂（M<sup>3</sup>/kg）</td>
 				  	</tr>
 					<tr>
 					    <td>COD</td>

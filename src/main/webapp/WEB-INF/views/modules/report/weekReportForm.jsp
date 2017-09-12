@@ -90,7 +90,7 @@
 		<sys:message content="${message}"/>
 		<form:hidden path="id"/>
 		<div class="control-group">
-			<label class="lbl">${report.officeName}生产周报</label><br>
+			<label class="lbl">${report.officeName}第${weekOfYear}周生产周报</label><br>
 			<label class="input-label" >汇报时间</label>
 			<input id="reportDate" name="reportDate" type="text" readonly="readonly" maxlength="50" class="input-mini Wdate"
 								value="<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="myDate"/> <fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd"/>"
@@ -101,12 +101,12 @@
 			<label class="lbl">（1）水量及材料消耗</label><br>
 			<table class="table table-striped table-bordered table-condensed">
 			  <tr>
-			    <td colspan="2">水量(m3)</td>
+			    <td colspan="2">水量(m<sup>3</sup>)</td>
 			    <td>PAC(吨) </td>
 			    <td>铁盐/除磷剂(吨)</td>
 			    <td>PAM-(kg)</td>
 			    <td>PAM+(kg)</td>
-			    <td>消毒药剂(m3/kg)</td>
+			    <td>消毒药剂(m<sup>3</sup>/kg)</td>
 			    <td>用电量(kw.h)</td>
 			    <td>用水量(吨)</td>
 			    <td>污泥量(吨)</td>
@@ -129,11 +129,11 @@
 			  <tr>
 			    <td>自测周均值</td>
 			    <td>COD</td>
-			    <td>NH3-H</td>
+			    <td>NH<sub>3</sub>-N</td>
 			    <td>TP</td>
 			    <td>TN</td>
 			    <td>SS</td>
-			    <td>PH</td>
+			    <td>pH</td>
 			  </tr>
 			  <tr>
 			    <td>进水浓度（mg/L）</td>
@@ -158,11 +158,11 @@
 			  <tr>
 			    <td>在线监测周均值</td>
 			    <td>COD</td>
-			    <td>NH3-H</td>
+			    <td>NH<sub>3</sub>-N</td>
 			    <td>TP</td>
 			    <td>TN</td>
 			    <td>SS</td>
-			    <td>PH</td>
+			    <td>pH</td>
 			  </tr>
 			  <tr>
 			    <td>进水浓度（mg/L）</td>
@@ -191,11 +191,11 @@
 			  <tr>
 			    <td>日期</td>
 			    <td>COD</td>
-			    <td>NH3-H</td>
+			    <td>NH<sub>3</sub>-N</td>
 			    <td>TP</td>
 			    <td>TN</td>
 			    <td>SS</td>
-			    <td>PH</td>
+			    <td>pH</td>
 			    <th><a href="javascript:" onclick="addClomnIn();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			  <tr>
@@ -216,11 +216,11 @@
 			  <tr>
 			    <td>日期</td>
 			    <td>COD</td>
-			    <td>NH3-H</td>
+			    <td>NH<sub>3</sub>-N</td>
 			    <td>TP</td>
 			    <td>TN</td>
 			    <td>SS</td>
-			    <td>PH</td>
+			    <td>pH</td>
 			    <th><a href="javascript:" onclick="addClomnOut();" class="btn"><i class="icon-plus"></i></a></th>
 			  </tr>
 			  <tr>

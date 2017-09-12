@@ -1,10 +1,13 @@
 package com.thinkgem.jeesite.modules.report.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.DateUtils;
+import com.thinkgem.jeesite.common.utils.FileUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.utils.excel.ExportExcelJxls;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.report.entity.DayReport;
 import com.thinkgem.jeesite.modules.report.entity.Overproof;
 import com.thinkgem.jeesite.modules.report.entity.WeekReport;
 import com.thinkgem.jeesite.modules.report.service.OverproofService;
@@ -103,6 +109,7 @@ public class WeekReportController extends BaseController {
 		}
 		model.addAttribute("report", report);
 		model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("weekOfYear", DateUtils.getLastWeekOfYear(report.getReportDate()));
 		return "modules/report/weekReportForm";
 	}
 
@@ -114,6 +121,7 @@ public class WeekReportController extends BaseController {
 		report.setOfficeName(office.getName());
 		model.addAttribute("report", report);
 		model.addAttribute("user", UserUtils.getUser());
+		model.addAttribute("weekOfYear", DateUtils.getLastWeekOfYear(report.getReportDate()));
 		if (report != null) {
 			Overproof inEntity = new Overproof();
 			inEntity.setDelFlag(Overproof.DEL_FLAG_NORMAL);
@@ -305,5 +313,68 @@ public class WeekReportController extends BaseController {
 			addMessage(redirectAttributes, "导出周报表失败！失败信息：" + e.getMessage());
 		}
 		return "modules/report/weekReportList";
+	}
+	
+	@RequiresPermissions("report:week:view")
+	@RequestMapping(value = "batchExport")
+	public String batchExport(String ids, final HttpServletRequest request, final HttpServletResponse response,
+			final RedirectAttributes redirectAttributes) {
+		if (ids!=null && ids.length()>0) {
+			String[] idArray = ids.split(",");
+			String partentPath = request.getSession().getServletContext().getRealPath("fileDir");
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append("周报_").append(idArray.length).append("_").append(RandomStringUtils.randomAlphanumeric(5))
+						.append("_").append(RandomStringUtils.randomAlphanumeric(5)).append("_").append(System.currentTimeMillis());
+			String zipFileName = stringBuilder.toString();
+			String childPath = "\\"+zipFileName;
+			String tempPath = partentPath+childPath;
+			File tempDir = new File(tempPath);
+			if (tempDir.exists()) {
+				tempDir.delete();
+			}
+			tempDir.mkdirs();
+			if (!tempDir.exists() || !tempDir.canWrite()) {
+				logger.error("系统错误！");
+				 return null;
+			}
+			for (final String id : idArray) {
+				WeekReport report = reportService.get(id);
+				try {
+					String company = OfficeUtils.getOfficeName(report.getOfficeId());
+					String fileName = company + "_" + "周报表" + report.getReportDate() + ".xls";
+					List inOverproofList = null;
+					List outOverproofList = null;
+					if (report != null) {
+						Overproof inEntity = new Overproof();
+						inEntity.setDelFlag(Overproof.DEL_FLAG_NORMAL);
+						inEntity.setMonthReportId(Integer.parseInt(report.getId()));
+						inEntity.setType("3");
+						inOverproofList = overproofService.findList(inEntity);
+
+						Overproof outEntity = new Overproof();
+						outEntity.setDelFlag(Overproof.DEL_FLAG_NORMAL);
+						outEntity.setMonthReportId(Integer.parseInt(report.getId()));
+						outEntity.setType("4");
+						outOverproofList = overproofService.findList(outEntity);
+					}
+					new ExportExcelJxls(4).setWeekReport(report).setCompany(company).setOvInList(inOverproofList)
+					.setOvOutList(outOverproofList).writeFile(tempDir.getPath()+"\\"+fileName);
+				} catch (Exception e) {
+					e.printStackTrace();
+					addMessage(redirectAttributes, "导出周报表失败！失败信息：" + e.getMessage());
+				}
+			}
+			String zipFileFullPath =tempPath+"\\"+zipFileName+".zip";
+			FileUtils.zipFiles(tempPath, "*", zipFileFullPath);
+			
+	        File zipFile = new File(zipFileFullPath);
+	        FileUtils.downFile(zipFile, request, response);
+	        try {
+				FileUtils.deleteDirectory(tempDir);
+			} catch (IOException e) {
+			}
+	        return null;
+		}
+		return "redirect:" + adminPath + "/report/week/list";
 	}
 }

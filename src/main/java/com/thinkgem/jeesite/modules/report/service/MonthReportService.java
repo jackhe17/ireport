@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.thinkgem.jeesite.modules.report.service;
 
 import java.util.ArrayList;
@@ -24,11 +21,6 @@ import com.thinkgem.jeesite.modules.report.entity.MonthReport;
 import com.thinkgem.jeesite.modules.report.entity.RangeReport;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
-/**
- * 区域Service
- * @author ThinkGem
- * @version 2014-05-16
- */
 @Service
 @Transactional(readOnly = true)
 public class MonthReportService extends CrudService<MonthReportDao, MonthReport> {
@@ -66,13 +58,13 @@ public class MonthReportService extends CrudService<MonthReportDao, MonthReport>
 			report.setUpdateDate(new Date());
 			report.setDelFlag("0");
 			reportDao.insert(report);
-			return Integer.valueOf(report.getId());
+			
 		}else{
 			report.setUpdateBy(UserUtils.getUser());
 			report.setUpdateDate(new Date());
-			return reportDao.update(report);
+			reportDao.update(report);
 		}
-		
+		return Integer.valueOf(report.getId());
 	}
 	@Transactional(readOnly = false)
 	public void delete(MonthReport report){

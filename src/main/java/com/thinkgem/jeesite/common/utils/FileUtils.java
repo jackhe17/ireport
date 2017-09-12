@@ -576,8 +576,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 				}
 				zouts.closeEntry();
 				fin.close();
-				System.out
-						.println("添加文件 " + file.getAbsolutePath() + " 到zip文件中!");
+//				System.out
+//						.println("添加文件 " + file.getAbsolutePath() + " 到zip文件中!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -964,5 +964,9 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 			return null;
 		}
 		return fileName.substring(0, fileName.lastIndexOf("."));
+	}
+	public static void main(String[] args) {
+		File file = new File("J:\\apache-tomcat-8.5.15\\webapps\\ireport\\fileDir\\日报_13_hvAJh_IJNPf_1499220257000");
+		file.deleteOnExit();
 	}
 }
